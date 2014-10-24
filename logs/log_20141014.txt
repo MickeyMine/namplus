@@ -1,0 +1,2 @@
+date/time	script	user	action	table	field	key value	old value	new value
+2014/10/14 00:52:58	/administrator/login.php	admin	login	127.0.0.1				

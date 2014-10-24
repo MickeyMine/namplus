@@ -1,0 +1,316 @@
+.desktop-only
+{
+	display: none !important;
+}
+
+.device-only
+{
+	display: block !important;
+}
+
+.page
+{
+	padding: 0px;
+}
+
+.header {	
+	width: 100%;
+	height: 40px;
+	left: 0;
+}
+
+.logohead
+{
+	width: 100%;
+	height: 40px;
+	position: relative;
+}
+
+.headContent
+{
+	height: 40px;
+}
+
+.logocontent
+{
+	width: 100%;
+	margin: 0px auto 0px auto;
+	text-align: center;
+	padding-top: 5px;
+}
+
+.logocontent img
+{
+	height: 32px;
+}
+
+.logoicon
+{
+	position: absolute;
+	top: 5px;
+}
+
+.logoicon img
+{
+	width: 62px;
+}
+
+.sidebar1
+{
+	bottom: 0;
+	height: 100%;
+	left: -65%;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	width: 65%;
+}
+
+.sidebar1
+{
+	left: -65%;
+	overflow-y: scroll;
+}
+
+.nav-visible #inner-wrap, .nav-visible .header {
+	left: 65%;
+}
+
+.nav-visible .sidebar1
+{
+	left: 0;
+}
+
+ul.nav li > ul
+{
+	position: relative;
+    display: none;
+	height: 100%;
+	width: 100%;
+}
+
+ul.nav li > ul li
+{
+	text-align: right;
+}
+
+ul.nav li:hover > ul
+{
+	display: block;
+	left: 0;
+}
+
+.container
+{
+	min-width: 200px;
+	overflow: visible;
+}
+
+.mainCotent
+{
+	top: 40px;
+	margin-bottom: 0px;
+	width: 100%;
+}
+
+.div-image-head img
+{
+	max-height: 100px;
+	height: 100px;	
+}
+
+.content
+{
+	width: 100%;
+	left: 0;
+}
+
+.page-content
+{
+	margin-top: 0px;
+	margin-bottom: 40px;
+}
+
+.register-left, .register-right
+{
+	width: 100%;
+}
+
+.register-left
+{
+	border-bottom: 1px solid #fff;
+}
+
+.j-magazine
+{
+	width: 48%;
+	float: left;	
+}
+
+.pageMagazine
+{
+	min-width: 100%;
+	min-height: 400px;
+}
+
+#frameMagazine
+{
+	position: relative;
+	width: 100%;
+	min-height: 400px;
+}
+
+.new-article, .offer-article
+{
+	height: 78px;
+}
+
+.section-left, .section-right, .also-like-box
+{
+	font-size: 0.5em;
+}
+
+.new-context
+{
+	width: 100%;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.div-new-content
+{
+	width: 60%; 
+	font-size: 0.9em;
+}
+
+.margin-right, .margin-left
+{
+	height: 78px;
+}
+
+.sectionright
+{
+	margin-right: 140px;
+	height: 78px;
+}
+
+.sectionleft
+{
+	margin-left: 142px;
+	height: 78px;
+}
+
+.leftsection
+{
+	width: 140px;
+}
+
+.rightsection
+{
+	width: 140px;
+	margin-left: -142px;
+}
+
+.linesectionright
+{
+	margin-left: -141px;
+}
+
+.linesectionleft
+{
+	margin-left: 140px;
+}
+
+.div-offer-content
+{
+	font-size: 0.5em;
+}
+
+.content-next-box .content-next-box-left-offer
+{
+	border-right: 8px solid #777;
+	border-top: 11px solid transparent;
+	border-bottom: 11px solid transparent;
+}
+
+.content-next-box .content-next-box-right-offer
+{
+	border-left: 8px solid #777;
+	border-top: 11px solid transparent;
+	border-bottom: 11px solid transparent;
+}
+
+.leftcontent
+{
+	width: 100%;
+}
+
+.buttonleftcontent
+{
+	padding-top: 50px; 
+}
+
+.topleftcontent, .toprightcontent
+{
+	height: 302px;
+}
+
+.rightcontent
+{
+	width: 100%;
+}
+
+.login-form {
+	width:320px;
+	background: url('/images/back_login_mobile.png') no-repeat 50% 50%;
+}	
+
+.login-title
+{
+	width: 80px;				
+}
+
+.login-content
+{
+	width: 240px;
+}
+
+.footer {
+	width: 100%;
+	margin-bottom: 0px;
+}
+
+.footer .footersocial
+{	
+	margin-bottom: 10px;	
+	clear: both;
+	float: left;	
+	height: 0px;
+}
+
+.sociallinks
+{
+	width: 100%;
+}
+
+.sociallinks ul
+{
+}
+
+.sociallinks ul li
+{
+	padding: 0px 2px 0px 2px;
+}
+
+.footercontact
+{
+	/*margin: -20px auto 0px auto;*/
+	margin-bottom: 32px; 
+}
+
+/* ~~ Slide liqImage ~~ */
+.ad-gallery .ad-image-wrapper
+{
+	min-height: 120px;
+}
+/* ~~ End Slide liqImage ~~ */

@@ -1,0 +1,1642 @@
+@charset "utf-8";
+
+body, fieldset, form, label, legend {
+    font: 100%/1.4 Helvetica;
+    background-color: #FFF;
+    margin: 0px;
+    padding: 0px;
+    color: #000;
+}
+
+input, select {
+    width: 67%;
+}
+
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+	list-style: none outside none;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing div. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 15px;
+	padding-left: 15px; /* adding the padding to the sides of the elements within the divs, instead of the divs themselves, gets rid of any box model math. A nested div with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+
+.desktop-only
+{
+	display: block !important;
+}
+
+.device-only
+{
+	display: none !important;
+}
+
+/* ~~ this container surrounds all other divs giving them their percentage-based width ~~ */
+#outer-wrap, #inner-wrap {
+	position: relative;
+	width: 100%;
+}
+#outer-wrap {
+	overflow: hidden;
+}
+
+label {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+}
+
+label, select {
+    display: block;
+    clear: both;
+    line-height: 20px;
+}
+
+.container {
+	position: relative;
+	width: 100%;
+	max-width: 1260px;/* a max-width may be desirable to keep this layout from getting too wide on a large monitor. This keeps line length more readable. IE6 does not respect this declaration. */	
+	background-color: #FFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout. It is not needed if you set the .container's width to 100%. */
+}
+
+.fixed
+{
+	position: fixed;
+}
+
+.message-span
+{
+	width: 100%;
+	padding: 5px 10px;
+	margin: 5px;
+}
+
+/* ~~ the header is not given a width. It will extend the full width of your layout. It contains an image placeholder that should be replaced with your own linked logo ~~ */
+.header {
+	width: 100%;
+	background-color: #fff;	
+	padding: 0px;
+	margin: 0px;
+	border-bottom: 1px solid #aaa;
+	z-index: 1000;
+}
+
+.headContent
+{
+	float: left;
+	width: 100%;
+	margin: 0px auto;
+	padding: 0px;
+	height: 70px;
+	background-color: #fff;
+	z-index: 1000;
+}
+
+.logocontent
+{
+	width: 100%;
+	margin: 0px auto 0px auto;
+	text-align: center;
+	padding-top: 10px;
+}
+
+.logoicon
+{
+	position: absolute;
+	top: 3px;
+}
+
+.logoicon img
+{
+	width: 62px;
+}
+
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the divs. The elements within these divs have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the div itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the div and place a second div within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a div set to float right). Many times, padding can be used instead. For divs where this rule must be broken, you should add a "display:inline" declaration to the div's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar divs could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the right instead of the left, simply float these columns the opposite direction (all right instead of all left) and they'll render in reverse order. There's no need to move the divs around in the HTML source.
+
+*/
+.mainCotent
+{
+	top: 70px;
+	position: relative;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	float: left;
+	display: inline;
+	margin-bottom: 70px;
+	background-color: #ddd;
+}
+
+.sidebar1 {
+	/*position: relative;*/
+	float: left;
+	width: 15%;
+	padding-bottom: 10px;
+	top: 70px;
+	bottom: 0px;
+	overflow: visible;
+	background-color: #888;
+	text-align: right;
+	text-transform: uppercase;
+	z-index: 100;
+	color: #fff;
+}
+
+.sidebar1 .nav
+{
+	position: relative;
+	left: 0;
+}
+
+/*
+* Search form
+*/
+#searchForm
+{
+	position: relative;
+	width: 100%;
+	background-color: #888;
+	text-align: center;
+	margin-top: 5px;
+}
+
+#searchForm input[type=submit]
+{	
+	position: absolute;
+	width: 24px;
+	top: 0px;
+	right: 0px;
+	border: none;
+	height: 28px;
+	background-color: transparent;
+	background-image: url("../images/search.png");
+	background-position: center center;
+}
+
+#searchForm input[type=text]
+{	
+	height: 24px;
+	padding: 1px 24px 1px 1px;
+}
+
+#searchForm div {	
+	margin: 0px auto;
+    overflow: hidden; 
+	width: 85%;
+	position: relative;
+}
+
+.content {	
+	position: relative;
+	padding: 0px 2px 0px 0px;
+	margin: 0px auto;
+	width: 70%;
+	float: left;
+	left: 15%;
+	background-color: #fff;
+}
+
+.cotent_display
+{
+	position: relative;
+	/*padding: 0px 1px;*/
+	padding: 0px;
+}
+
+.sidebar2 {
+	position: relative;
+	float: left;
+	width: 15%;
+	left: 15%;
+	/*background-color: #ddd;
+	padding: 10px 0;*/
+	padding-bottom: 10px;
+	bottom: 0px;
+	overflow: visible;
+	text-align: center;
+	z-index: 100;
+	color: #fff;
+	margin-top: 1px;
+	margin-left: 2px;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol { 
+	padding: 0px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+.icon-home
+{
+	position: relative;
+	padding: 0px;
+	margin: auto;
+}
+.icon-home img
+{
+	padding: 4px 2px 2px 2px;
+	width: 18px;
+}
+
+ul.nav {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+ul.nav li {
+	/*border-bottom: 1px solid #666;*/ /* this creates the button separation */
+	
+}
+ul.nav a, ul.nav a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	text-decoration: none;
+	color: #FFF;
+	font-size: 0.8em;
+}
+ul.nav a:hover, ul.nav a:active, ul.nav a:focus, ul.nav li:hover { /* this changes the background and text color for both mouse and keyboard navigators */
+	/*
+	text-decoration: underline;
+	*/
+	background-color: #666;
+}
+
+ul.nav .parent-cat:hover
+{
+	background-color: #888;
+}
+
+ul.nav li > ul
+{
+	position: absolute;
+    background-color: #333;
+    top: 0;
+    min-width: 100%;
+    height: 100%;
+    display: none;
+}
+
+ul.nav li > ul li
+{
+	text-align: left;
+}
+
+ul.nav li:hover > ul
+{
+	display: block;
+	left: 100%;
+}
+
+.styleButton {
+    display: inline;
+    width: 130px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: medium none;
+    text-align: right;
+    cursor: pointer;
+}
+
+.parent-cat
+{
+	padding-top: 5px;
+	padding-bottom: 10px;
+	padding-right: 15px;
+	font-size: 1.0em;
+	font-weight: bolder;
+}
+
+.div-image-head
+{
+	width: 100%;
+	background-color: #aaa;
+	/*padding: 12px 0px 8px;*/
+	text-align: center;
+	margin: 1px 0px;
+	border: 1px solid #AAA;
+	
+}
+
+.div-image-head img
+{
+	max-width: 100%;
+	height: 240px;
+	max-height: 240px;
+	text-align: center;
+	display: table;
+	vertical-align: middle;
+	/*
+	text-overflow: ellipsis;
+	*/
+	margin: auto;
+}
+
+.hasGradient {
+	height: 100%;
+    background-color: #FFF;
+    background-image: -moz-linear-gradient(center top , #FFF 0px, #E9E9E9 100%);
+}
+
+.div-sitemap
+{
+	position: relative;
+	width: 100%;
+	font-size: 1.2em;
+	/*padding: 5px;*/
+	margin: auto;
+	z-index: 10;
+	height: 28px;
+	padding-top: 2px;	
+}
+
+.div-sitemap ul
+{
+	position: relative;	
+	list-style: none outside none;
+	width: 100%;	
+	padding: 0px;
+}
+
+.div-sitemap ul li
+{
+	position: relative;
+	float: left;
+	padding-left: 5px;
+	padding-right: 5px;
+	height: 100%;
+}
+
+.div-sitemap li a, .div-sitemap li a:active
+{
+	color: #777;	
+	text-decoration: none;
+}
+
+.div-sitemap li a:hover
+{
+	text-decoration: underline;
+}
+
+.page-content
+{
+	position: relative;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	border: 1px solid #777;	
+}
+
+.arr-r1
+{
+	margin-top: 7px;
+	width: 11px;
+	height: 12px;
+	display: block;
+	overflow: hidden;
+	background: url("/images/sprite.png") no-repeat scroll left
+		bottom transparent;
+	text-indent: -500px;
+	background-position: right -180px;
+}
+
+
+a.button.dark, button.dark, input.dark {
+	background-color: #808080;
+	color: white;
+}
+
+/* ~~ Login ~~ */
+.logincontent
+{
+	position: relative;
+	width: 100%;
+}
+
+.logincontent ul
+{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	overflow:hidden;
+}
+
+.logincontent ul li
+{
+	display: inline;
+	
+}
+
+.logincontent ul li a
+{
+	position: relative;
+	line-height: 40px;
+}
+
+.login-form input.error {
+    background-color: #fee9fa;
+    border-color: #fbb7ef;
+}
+
+.no-clear { clear: none; }
+
+.login-form {
+	width:350px;
+	height: 123px;
+	background: url('/images/back_login.png') no-repeat 50% 50%;
+	position: relative;
+	padding: 0px;
+	margin: 0px auto;			
+	color: #fff;
+}	
+
+.login-title
+{
+	position: relative;
+	float: left;		
+	width: 80px;
+	height: 123px;
+	line-height: 123px;
+	display: table-cell;
+	text-align: right;
+	vertical-align: middle;	
+	font-weight: bold;
+	text-transform: uppercase;					
+}
+
+.login-content
+{
+	position: relative;
+	float: left;		
+	width: 270px;
+	height: 123px;
+	line-height: 123px;
+	display: table-cell;
+	vertical-align: middle;	
+}
+
+	.login-form form label {
+		clear: left;
+		float: left;
+		width: 100%;
+		font-size: 10px;
+		line-height: 21px;
+		color: #fff;
+		padding-left: 3px;
+		letter-spacing: 0.1em;
+		background-color: transparent;
+	}
+	
+.login-form input.error {
+	background-color: #fee9fa;
+	border-color: #fbb7ef;
+}
+.login-form input.error:focus { border-color: #FF00B9 }
+.login-form form input.password { }
+.login-form form input.remember {
+	clear: left;
+	margin-left: 92px;
+	width: auto;
+	height: auto;
+	border: 0;
+	background: none;
+}
+.login-form form label.remember {
+	color: #828282;
+	letter-spacing: 0.1em;
+}
+
+.login-form form ol li
+{
+	overflow: hidden;
+	display: list-item;
+}
+
+.login-button
+{
+	position: relative;
+	width: 48px;
+	height: 22px;
+	line-height: 22px;
+	font-size: 9px;
+	margin-left: 139px;	
+	margin-bottom: 5px;
+	margin-top: 0px;
+	padding: 0px 5px;
+	font-weight: bold;
+	text-transform: uppercase;
+	border: none;
+	top: -28px;
+	cursor: pointer;
+}
+
+#loginform, #login-admin-form
+{
+	padding-left: 5px;
+	background-color:transparent;
+}
+
+#loginform ol, #login-admin-form ol
+{
+	padding: 0px;
+}
+
+#loginform ol li, #login-admin-form ol li
+{
+	background-color:transparent;
+}
+
+.forgot-pass
+{	
+	font-size: 9px;
+	font-style: italic;
+	padding-left: 5px;
+}
+
+#div-loading
+{
+	width: 100%;
+	text-align: center;
+	float: left;
+}
+
+#div-loading input
+{
+	width: 100%; 
+	line-height: 30px; 
+	font-size: 14pt;
+}
+
+/* ~~ End Login ~~ */
+
+/* ~~ Contact us ~~ */
+fieldset {
+    border: medium none;
+    padding: 0px 0px 10px;
+    margin: 0px auto;
+    background: none repeat scroll 0% 0% #CCC;
+}
+
+fieldset legend {
+	padding-top: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+    font-size: 15px;
+    line-height: 16px;
+    color: #000;
+}
+
+form ol li
+{
+    overflow: hidden;
+	padding-left: 8px;
+	background: #ccc;
+}
+
+label
+{
+	padding-left: 20px;
+	background: #ccc;
+}
+
+.register-left, .register-right
+{
+	position: relative;
+	float: left;
+	width: 50%;
+	padding: 0px;
+	margin: 0px auto;
+	background-color: #CCC;
+}
+
+#registrationFormSubscription, #registrationFormProfession
+{
+	position: relative;
+	width: 90%;
+	padding: 0px;
+	margin: 0px auto;
+}
+
+.line-register
+{
+	position: absolute;
+	height: 100%;
+	line-height: 100%;
+	width: 1px;
+	background-color: #fff;
+	left: 50%;
+}
+
+/* ~~ Magazine styles ~~ */
+.j-magazine-view
+{
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	clear: both;
+}
+
+.j-magazine
+{
+	position: relative;
+	width: 24%;
+	padding: 3px;	
+	margin: 0px auto;
+	text-align: center;	
+	float: left;	
+}
+
+.j-magazine img
+{
+	width: 85%;
+	-webkit-box-shadow: 5px 5px 9px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    5px 5px 9px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         5px 5px 9px 0px rgba(50, 50, 50, 0.75);
+}
+
+.j-magazine-title
+{
+	position: relative;
+	font-size: 0.6em;
+	font-weight: bolder;
+}
+
+.pageMagazine
+{
+	min-width: 600px;
+	min-height: 500px;
+}
+
+#frameMagazine
+{
+	position: relative;
+	width: 100%;
+	min-height: 500px;
+}
+/* ~~ End magazine styles ~~ */
+
+/* ~~ News styles ~~ */
+.new-content, .offer-content
+{
+	position: relative;
+	width: 100%;
+	float: left;
+	margin: 0px;
+	padding: 0px;
+}
+
+.new-content iframe
+{
+	max-width: 100%;
+}
+
+.new-main-content
+{
+	position: relative;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.new-article, .offer-article
+{
+	position: relative;
+	width: 100%;
+	/*padding: 1px;*/
+	margin: 0px;
+	padding: 0px;
+	height: 197px;
+	/*border: 1px solid #777;*/
+	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+}
+
+.display-table {
+    width: 100%;
+    height: 100%;
+    display: table;	
+	margin: 0px auto;	
+}
+
+.display-table-cell
+{
+	vertical-align: middle;
+	display: table-cell;
+	width: 100%;
+	text-align: center
+}
+
+.div-new-content
+{
+	width: 80%; 
+	margin: auto; 
+	text-align: left;
+	font-size: 0.9em;
+}
+
+.title-new-cat
+{
+	padding: 5px 0px;
+	margin: 0px;
+	font-size: 1.1em;
+	text-transform: uppercase;
+}
+
+.title-new-content
+{
+	padding: 0px;
+	margin: 0px;
+	font-size: 1.1em;
+}
+
+.title-new-context
+{
+	padding: 0px;
+	margin: 0px;
+	font-style: italic;
+	font-size: 1.1em;
+}
+
+.new-line-right
+{
+	position: relative;
+	float: left;
+	width: 1px;
+	height: 100%;
+	margin-right: -100%;
+	margin-left: 50%;
+	z-index: 10;
+	background-color: #777;
+}
+
+.new-line-left div, .new-line-right div {
+    text-align: center;
+	height: 100%;
+    line-height: 100%;
+}
+
+.new-line-left div > img, .new-line-right div > img {
+    position: absolute;
+    top: 50%;
+    margin-top: -16px;
+    margin-left: -16px;
+}
+
+.new-line-left
+{
+	position: relative;
+	float: left;
+	width: 1px;
+	height: 100%;
+	margin-left: -50%;
+	z-index: 10;
+	background-color: #777;
+}
+
+.new-content-left
+{
+	float: right;
+	width: 100%;
+	height: 100%;
+}
+
+.section-left
+{
+	margin-left: 50%;
+	height: 100%;
+}
+
+.new-image-right
+{
+	float: left;
+	width: 50%;
+	height: 100%;
+	margin-right: -100%;
+	background-color: #F2F2F2;
+	overflow: hidden;
+}
+
+.new-content-right
+{
+	float: left;
+	width: 100%;
+	height: 100%;
+}
+
+.new-context
+{
+	width: 80%;
+	padding: 0px;
+	margin: 0px auto;
+}
+
+.new-description, .new-description p, .new-content p
+{
+	margin: 0px;
+	padding: 0px;
+}
+.new-description
+{
+	font-style: italic;
+	padding-bottom: 5px;
+}
+
+.new-description iframe, .new-description object
+{
+	width: 100%;
+}
+
+.section-right
+{
+	margin-right: 50%;
+	height: 100%;
+}
+
+.section-right, .section-left
+{
+	background-color: #fff;
+}
+
+.new-image-left
+{	
+	float: right;
+	width: 50%;
+	height: 100%;
+	margin-left: -50%;
+	background-color: #F2F2F2;
+	overflow: hidden;
+}
+
+.content-next-news
+{
+	width: 100%;
+	text-align: center;
+	margin: auto;
+}
+
+.content-next-box, .content-next-box-small
+{
+	margin: auto;
+}
+
+.div-content-next
+{
+	margin: 5px auto;
+	display: table;
+	color: white;
+	text-transform: uppercase;
+}
+
+.div-content-next:hover
+{
+	cursor:pointer;
+}
+
+.content-next-box .content-next-box-left, .content-next-box .content-next-box-left-offer
+{
+	float: left;
+	border-right: 10px solid #777;
+	border-top: 16px solid transparent;
+	border-bottom: 17px solid transparent;
+}
+
+.content-next-box .content-next-box-right, .content-next-box .content-next-box-right-offer
+{
+	float: left;
+	border-left: 10px solid #777;
+	border-top: 16px solid transparent;
+	border-bottom: 17px solid transparent;
+}
+
+.content-next-box .content-next-box-main, .content-next-box .content-next-box-main-offer
+{
+	float: left;
+	padding: 5px;
+	background-color: #777;
+}
+
+.content-next-box-small .content-next-box-small-left
+{
+	float: left;
+	border-right: 8px solid #777;
+	border-top: 11px solid transparent;
+	border-bottom: 11px solid transparent;
+}
+
+.content-next-box-small .content-next-box-small-right
+{
+	float: left;
+	border-left: 8px solid #777;
+	border-top: 11px solid transparent;
+	border-bottom: 11px solid transparent;
+}
+
+.content-next-box-small .content-next-box-small-main
+{
+	float: left;
+	padding: 0px;
+	background-color: #777;
+}
+/*
+.new-image-right img, .new-image-left img
+{
+	width: 100%;
+	height: 100%;
+}
+*/
+
+.also-like
+{
+	position: relative;
+	float: left;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+.also-like-title
+{
+	position: relative;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	margin: 0px;
+	text-transform: uppercase;	
+	font-size: 1.2em;
+	border-top: 1px solid #777;
+	border-bottom: 1px solid #777;
+}
+
+.also-like-main
+{
+	position: relative;
+	width: 100%;	
+}
+
+.also-like-section
+{
+	position: relative;
+	width: 50%;
+	float: left;
+}
+
+.also-like-content
+{
+	float: right;
+	width: 100%;
+	/*padding-bottom: 25%;*/
+}
+
+.also-like-right
+{
+	margin-left: 50%;
+	/*padding-bottom: 50%;*/
+}
+
+.also-like-image
+{
+	float: left;
+	width: 50%;
+	/*height: 100%;*/
+	padding-bottom: 50%;
+	margin-right: -100%;
+	background-color: #F2F2F2;
+	overflow: hidden;
+}
+
+/*
+.also-like-image img
+{
+	width: 100%;
+}
+*/
+.also-like-line
+{
+	position: relative;
+	float: left;
+	width: 1px;
+	height: 100%;
+	margin-right: -100%;
+	margin-left: 50%;
+	z-index: 10;
+}
+
+.also-like-article
+{
+	position: relative;
+	width: 50%;
+	padding: 0px;
+	margin: 0px;
+	float: left;
+}
+
+.also-like-line
+{
+	position: relative;
+	float: left;
+	width: 1px;
+	padding-bottom: 50%;
+	margin-left: 0%;
+	z-index: 10;	
+}
+
+.also-like-line div
+{	
+	position: absolute;
+   	left: 0px;
+   	right: 0px;
+   	top: 0px;
+   	bottom: 0px;	
+}
+
+.also-like-line div > img
+{
+	position: absolute;
+	top: 50%;
+	margin-top: -16px;
+	margin-left: -16px;
+}
+
+.also-like-box
+{
+	position: relative;
+	float: left;
+	width: 50%;
+	padding-bottom: 50%;
+	background-color: #777;
+}
+
+.also-like-inner-box
+{
+	position: absolute;
+   	left: 1px;
+   	right: 1px;
+   	top: 1px;
+   	bottom: 1px;
+	background-color: #fff;
+	overflow: hidden;
+}
+/*
+.also-like-inner-box img
+{
+	width: 100%;
+	height: 100%;
+}
+*/
+/* ~~ End News styles ~~ */
+
+/* ~~ offer styles ~~ */
+.div-offer-content
+{
+	width: 80%;
+	margin: auto;
+	/*font-size: 0.9em;*/
+}
+
+.margin-right
+{
+	float: left;
+	width: 100%;
+	/*height: 196px;*/
+	height: 100%;
+}
+
+.margin-left
+{
+	float: right;
+	width: 100%;
+	height: 100%;
+}
+
+.sectionright
+{
+	margin-right: 350px;
+	height: 100%;
+	background-color: #f2f2f2;
+}
+
+.sectionleft
+{
+	margin-left: 352px;
+	height: 100%;
+	background-color: #f2f2f2;
+}
+
+.leftsection
+{
+	float: left;
+	width: 350px;
+	height: 100%;
+	margin-right: -100%;
+	background-color: #f2f2f2;
+	overflow: hidden;
+}
+
+.rightsection
+{
+	float: right;
+	width: 350px;
+	height: 100%;
+	margin-left: -352px;
+	z-index: 2px;
+	background-color: #F2F2F2;
+	overflow: hidden;
+}
+
+.linesectionright
+{
+	position: relative;
+	float: left;
+	width: 1px;
+	height: 100%;
+	margin-left: -351px;
+	z-index: 10;	
+}
+
+.linesectionleft
+{
+	position: relative;
+	float: left;
+	width: 1px;
+	height: 100%;
+	margin-right: -100%;
+	margin-left: 350px;
+	z-index: 10;	
+}
+
+.linesectionright div, .linesectionleft div
+{
+	text-align: center;
+	height: 100%;
+	line-height: 100%;
+    background-color: #AAA;
+}
+
+.linesectionright div > img, .linesectionleft div > img
+{
+	position: absolute;
+	top: 50%;
+	margin-top: -16px;
+    margin-left: -16px;
+}
+
+.sectiontitle
+{
+	font-weight: bold;	
+	margin: auto;
+}
+
+.sectiondescription
+{
+	/*font-size: 12px;*/
+	margin: auto;
+}
+
+/* ~~ End offer styles ~~ */
+
+#nextpage
+{
+	position: relative;
+	float: left;
+	width: 100%;
+	padding: 0px;
+	margin: auto;
+	text-align: center;
+}
+
+#div-loading
+{
+	position: relative;
+	float: left;
+	width: 100%;
+	padding: 0px;
+}
+
+#div-loading input
+{
+	width: 100%;
+	padding: 5px 0px;
+	margin: 0px;
+	text-transform: uppercase;
+
+}
+
+.tabs-line-div
+{
+	width: 100%;
+	/*line-height: 25px;*/
+	padding: 0px;
+	margin: 0px auto 0px auto;
+	text-align: center;
+	background: url(/images/line.png) repeat-x 50% 50%;
+	overflow-x: auto;
+}
+
+.tabs-line-div ul
+{
+	padding: 0px;
+	margin: 0px auto 0px auto;
+	list-style: none outside none;
+	display: inline-flex;		
+}
+
+.tabs-line-div ul li
+{
+	display: inline;
+	height: 30px;
+	position: relative;
+	background-color: #fff;
+	padding: 0px 5px 0px 5px;
+}
+
+.tabs-line-div ul li a
+{
+	text-decoration: none;
+	color: #aaa;
+	font-weight: bold;
+}
+
+.tabs-line-div ul li a:hover, .tabs-line-div ul li a:active
+{
+	color: #fff;
+}
+
+.tabs-line-div ul li .selected
+{
+	color: #fff;
+}
+
+.offer-details-content
+{
+	clear:both;
+	width: 100%;
+	padding: 0px;
+	margin: 0px auto;
+}
+/* ~~ Offer details ~~ */
+.leftcontent, .rightcontent
+{
+	float: left;
+	position: relative;
+	width: 50%;
+	padding: 0px;
+	margin: auto;
+}
+
+.rightcontent
+{
+	margin: 0px auto;
+}
+
+.buttonleftcontent
+{
+	padding-top: 80px; 
+	padding-bottom: 20px;
+}
+
+.topleftcontent
+{	
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 402px;
+	padding: 0px;
+	margin: auto;
+	text-align: center;	
+	border: 1px solid #ccc;
+	display: table;
+	vertical-align: middle;
+}
+
+.bottomleftcontent
+{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 560px;
+	padding: 0px;
+	margin: auto;
+	border: 1px solid #ccc;
+	display: table;
+}
+
+.bottomleftcontentmain
+{
+	display: table-cell;
+	padding: 0px;
+	margin: auto;
+	vertical-align: middle;
+}
+
+.sharestyle
+{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+}
+
+.sharestyleimg
+{
+	position: relative;
+	/*width: 100%;*/
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	text-align: left;
+}
+
+.offerlogin
+{
+	position: relative;
+	width: 100%;
+	text-align: center;
+}
+
+.div-offer-login
+{
+	width: 50%;
+	text-align: center;
+	display: inline-flex;
+	margin: 0px auto;
+}
+
+.bottomrightcontent
+{
+	position: relative;
+	width: 100%;
+	height: 298px;
+	padding: 0px;
+	margin: 0px auto;
+	border: 1px solid #ccc;
+	display: table;
+}
+
+.bottomleftcontent1
+{
+	position: relative;
+	width: 100%;
+	max-height: 250px;
+	float: left;
+	overflow-y: auto;
+}
+
+.slidercontent
+{
+	position: relative;
+	vertical-align: middle;
+	text-align: center;
+	width: 100%;
+	height: 230px;
+	padding: 0px;
+	margin: 0px;	
+	display: table;	
+}
+
+.mainslider
+{
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
+	padding: 0px;
+	width: 100%;
+	margin: auto;
+}
+
+.arr-u,.arr-d,.arr-r,.arr-l,.arr-u-t,.arr-d-b,.arr-l-s,.arr-r-s,.arr-ud,.arr-u-disabled,.arr-d-disabled,.arr-r-disabled,.arr-l-disabled
+	{
+	width: 11px;
+	/*height: 11px;*/
+	height: 12px;
+	display: block;
+	overflow: hidden;
+	background: url("/images/sprite.png") no-repeat scroll left
+		bottom transparent;
+	text-indent: -500px;
+}
+
+.arr-l.white {
+    /*background-position: left -40px;*/
+	background-position: left -180px;
+}
+
+.arr-r.white {
+    /*background-position: right -40px;*/
+	background-position: right -180px;
+}
+
+.img_nav .next,.img_nav .previous {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 40px;
+	cursor: pointer;
+}
+
+.img_nav .next {
+	right: 0px;
+}
+
+.img_nav .previous {
+	left: 0px;
+}
+
+.img_nav .next .arr-r,.img_nav .previous .arr-l
+	{
+	position: absolute;
+	top: 50%;
+}
+
+.img_nav .next .arr-r {
+	right: 5px;
+}
+
+.img_nav .previous .arr-l {
+	left: 5px;
+}
+
+.img_nav .next:hover .arr-r {
+	/*background-position: right -40px;*/
+	background-position: right -180px;
+}
+
+.img_nav .previous:hover .arr-l {
+	/*background-position: left -40px;*/
+	background-position: left -180px;
+}
+
+.toprightcontentmain
+{
+	vertical-align: middle;
+	padding: 0px;
+}
+
+ .toprightcontent
+{
+	position: relative;
+	width: 100%;
+	height: 402px;
+	padding: 0px;
+	text-align: center;	
+	border: 1px solid #ccc;
+}
+
+.toprightcontent img
+{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+}
+
+.elementmiddlerightcontent
+{
+	float: left;
+	width: 50%;
+	height: 141px;
+	padding: 0px;
+	margin: 0px;
+	background: #ccc;
+	display: table;
+	text-align: center;
+}
+
+.elementcontent
+{
+	display: table-cell;
+	border: 1px solid #fff;
+	padding-top: 6px;
+	margin: 0px;
+}
+
+.elementcontent a, .elementcontent a:hover, .elementcontent a:active, .elementcontent a:link
+{
+	color: #000;
+	text-decoration: none;
+}
+
+/* ~~ End offer details ~~ */
+
+/* ~~The footer ~~ */
+.footer {
+	text-align: center;
+	padding: 0px;
+	margin: 0px auto 30px auto;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+	
+}
+
+.footersocial
+{
+	width: 100%;
+	position: relative;
+	height: 32px;
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 20px;
+}
+
+.sociallinks
+{
+	width: 100%;
+	height: 1px;
+	/*line-height: 25px;*/
+	padding: 0px;
+	margin: 0px auto 0px auto;
+	background-color: #777;
+	text-align: center;
+}
+
+.sociallinks ul
+{
+	padding: 0px;
+	margin: 0px auto 0px auto;
+	list-style: none outside none;
+	display: block;	
+	/*background: url(/images/line1.png) repeat-x 50% 50%;*/
+}
+
+.sociallinks ul li
+{
+	display: inline;
+	height: 30px;
+	position: relative;
+	background-color: #fff;
+	padding: 0px 5px 0px 5px;
+}
+
+.sociallinks ul li a, .sociallinks ul li a:hover, .sociallinks ul li a:active
+{
+	text-decoration: none;
+}
+
+.footercontact
+{
+	width: 100%;
+	overflow: hidden;
+	padding-left: 2px;
+	z-index: 10;
+	margin: -25px auto;
+	text-align: center;
+}
+
+/* ~~miscellaneous float/clear classes~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty div as the final element following the last floated div (within the #container) if the #footer is removed or taken out of the #container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+#my_popup
+{
+	display: none;
+}
+
+.wrapper-map
+{
+	width: 100%;
+	background-color: transparent;
+}
+
+.message-popup
+{
+	background-color: white; 
+	margin: 0px auto; 
+	padding: 10px 20px;
+}

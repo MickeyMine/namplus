@@ -1,0 +1,183 @@
+.desktop-only
+{
+	display: none !important;
+}
+
+.device-only
+{
+	display: block !important;
+}
+
+.container
+{
+	/*min-width:569px;*/
+	max-width:768px;
+}
+
+.logohead
+{
+	width: 100%;
+	position: relative;
+}
+
+.logocontent
+{
+	width: 100%;
+}
+
+.logocontent img
+{
+	height: 52px;
+}
+
+.logoicon
+{
+	position: absolute;
+	top: 10px;
+}
+
+.logoicon img
+{
+	width: 82px;
+}
+
+.header {	
+	width: 100%;
+	height: 70px;
+}
+
+.mainCotent
+{
+	top: 70px;
+	margin-bottom: 70px;
+}
+
+.div-image-head img
+{
+	max-height: 160px;
+	height: 160px;	
+}
+
+.content
+{
+	width: 100%;
+	left: 0;
+}
+
+.page-content
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.sidebar1
+{
+	bottom: 0;
+	height: 100%;
+	left: -40%;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	width: 40%;
+}
+
+.sidebar1
+{
+	left: -40%;
+	overflow-y: scroll;
+}
+
+.nav-visible #inner-wrap, .nav-visible .header {
+	left: 40%;
+}
+
+.nav-visible .sidebar1
+{
+	left: 0;
+}
+
+
+.register-left, .register-right
+{
+	width: 100%;
+}
+
+.register-left
+{
+	border-bottom: 1px solid #fff;
+}
+
+.new-article, .offer-article
+{
+	height: 148px;
+}
+
+.section-left, .section-right, .also-like-box
+{
+	font-size: 0.8em;
+}
+
+.sectionright
+{
+	margin-right: 230px;
+}
+
+.sectionleft
+{
+	margin-left: 232px;
+}
+
+.leftsection
+{
+	width: 230px;
+}
+
+.rightsection
+{
+	width: 230px;
+	margin-left: -232px;
+}
+
+.linesectionright
+{
+	margin-left: -231px;
+}
+
+.linesectionleft
+{
+	margin-left: 230px;
+}
+
+.footer {
+	width: 100%;
+}
+
+.footer .footercontact
+{
+	margin: -15px auto 0px auto;
+}
+
+.footersocial
+{	
+	margin-bottom: 10px;
+}
+
+.sociallinks
+{	
+	width: 100%;
+}
+
+.sociallinks ul
+{
+}
+
+.sociallinks ul li
+{
+}
+
+/* ~~ Slide liqImage ~~ */
+.ad-gallery .ad-image-wrapper
+{
+	min-height: 140px;
+}
+/* ~~ End Slide liqImage ~~ */

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<configuration date="2014/09/14" author="e.World Technology Ltd.">
+<project id="{621448A2-A15A-4302-8B90-FC8E171BD28F}" file="F:\Workings\Projects\NamPlus\Codes\namplus_v1\namplus_v1.pmp" name="namplus_v1" product="PHPMaker" version="10.0" datetime="2014/09/14 14:03:45" languagefolder="phplang" userlevel="0,&quot;Default&quot;,0">
+<table id="categories" name="categories" caption="Categories" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="customers" name="customers" caption="Customers" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="image_gallery" name="image_gallery" caption="Image gallery" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="news" name="news" caption="News" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="offer_answers" name="offer_answers" caption="Offer answers" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="offer_details" name="offer_details" caption="Offer details" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="offer_locations" name="offer_locations" caption="Offer locations" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="offer_questions" name="offer_questions" caption="Offer questions" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="offers" name="offers" caption="Offers" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="subscriptions" name="subscriptions" caption="Subscriptions" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="users" name="users" caption="Users" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="userlevelpermissions" name="userlevelpermissions" caption="userlevelpermissions" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="userlevels" name="userlevels" caption="userlevels" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="viewcategoriesparent" name="viewcategoriesparent" caption="viewcategoriesparent" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="register_form" name="register_form" caption="Register form" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="payment_type" name="payment_type" caption="Payment type" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="viewoffers" name="viewoffers" caption="viewoffers" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="viewnews" name="viewnews" caption="viewnews" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+</project></configuration>
