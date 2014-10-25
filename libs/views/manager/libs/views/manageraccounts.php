@@ -1,5 +1,5 @@
 <?php
-include (PATH_CLASS_MODEL . 'mod_customers.php');
+//include (PATH_CLASS_MODEL . 'mod_customers.php');
 include (PATH_CLASS_MODEL . 'mod_payment_type.php');
 include (PATH_CLASS_MODEL . 'mod_subscriptions.php');
 //include ('../../../modules/paginator.class.php');
