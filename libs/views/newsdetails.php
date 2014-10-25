@@ -32,7 +32,14 @@ if (! isset ( $_SESSION )) {
 		$arr = split('-', $_GET['pItem']);
 		$id = $arr[count($arr) - 1];
 		
-		$_SESSION['like-also'] = $id . ',';
+		if(!isset($_SESSION['like-also']))
+		{
+		    $_SESSION['like-also'] = $id . ',';
+		}
+		else
+		{
+		  $_SESSION['like-also'] .= $id . ',';
+		}
 		
 		$modNews = new mod_news();
 		$currNews = $modNews->GetNewsById($id);		

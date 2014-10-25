@@ -50,7 +50,7 @@ class mod_news
 	
 	function GetNewsAlsoLike($contentTitle, $contentDesc, $listNewsId)
 	{
-		$sql = "select * from news where new_status = 1 and" ;
+		$sql = "select * from news where new_status = 1 and new_link_id IS NULL and" ;
         
 		if(isset($listNewsId))
 		{
