@@ -48,9 +48,15 @@ class mod_news
 		return $this->clsDb->fetchAllArray($sql);
 	}
 	
-	function GetNewsAlsoLike($contentTitle, $contentDesc)
+	function GetNewsAlsoLike($contentTitle, $contentDesc, $listNewsId)
 	{
-		$sql = "select * from news where new_status = 1 and new_id in (select new_id from news where new_title like N'%" . $contentTitle . "%' or new_description like N'%" . $contentTitle . "%' or new_title like N'%" . $contentDesc . "%' or new_description like N'%" . $contentDesc . "%') order by new_publish_date desc";
+		$sql = "select * from news where new_status = 1 and" ;
+        
+		if(isset($listNewsId))
+		{
+		    $sql .= " new_id not in (" . $listNewsId . ") and";
+		}
+		$sql .=	" new_id in (select new_id from news where new_title like N'%" . $contentTitle . "%' or new_description like N'%" . $contentTitle . "%' or new_title like N'%" . $contentDesc . "%' or new_description like N'%" . $contentDesc . "%') order by new_publish_date desc";
 		
 		return $this->clsDb->fetchAllArray($sql);
 	}

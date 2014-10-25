@@ -1,3 +1,9 @@
+<?php 
+if (! isset ( $_SESSION )) {
+    session_start ();
+}
+?>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		image_also_resize('.also-like-inner-box');
@@ -25,6 +31,8 @@
 	{
 		$arr = split('-', $_GET['pItem']);
 		$id = $arr[count($arr) - 1];
+		
+		$_SESSION['like-also'] = $id . ',';
 		
 		$modNews = new mod_news();
 		$currNews = $modNews->GetNewsById($id);		
@@ -71,8 +79,13 @@
 	</div>
 </div>
 <?php 
+    if(isset($_SESSION['like-also']))
+    {
+        $listNewsId = substr($_SESSION['like-also'], 0, -1);
+    }
+    
 	$modNews = new mod_news();
-	$alsoLike = $modNews->GetNewsAlsoLike($contentTitle, $contentDesc);
+	$alsoLike = $modNews->GetNewsAlsoLike($contentTitle, $contentDesc, $listNewsId);
 	
 	if(count($alsoLike) > 0)
 	{
