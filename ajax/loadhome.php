@@ -72,7 +72,7 @@ if(isset($_POST['page']) && isset($_POST['maxrecords']))
 				</section>
 				<section class="<?php echo ($isLeft)?'new-line-right':'new-line-left';?>">
 					<div>
-		    			<img alt="NAM PLUS" src="<?php echo BASE_NAME;?>images/namplus_icon_small.png" />
+		    			<img alt="NAM PLUS" src="<?php echo BASE_NAME;?>images/nam-icon-small.png" />
 					</div>	
 				</section>
 				<section class="<?php echo ($isLeft)?'new-image-right':'new-image-left';?>">
