@@ -804,8 +804,7 @@ label
     position: absolute;
     top: 50%;
     margin-top: -16px;
-    /*margin-left: -16px;*/
-	margin-left: -19px;
+    margin-left: -16px;
 }
 
 .new-line-left
