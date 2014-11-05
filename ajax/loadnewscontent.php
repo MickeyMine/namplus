@@ -11,7 +11,7 @@ if(isset($_POST['newsid']))
 	if(count($currNew) == 1)
 	{
 ?>
-		<h2 style="padding: 5px 0px; margin: 0px;">
+		<h2>
 			<?php echo $currNew[0]['new_title'];?>
 		</h2>
 		<div class="new-description">

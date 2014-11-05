@@ -159,7 +159,7 @@ label, select {
 	padding-bottom: 10px;
 	top: 70px;
 	bottom: 0px;
-	overflow: visible;
+	overflow: hidden;
 	background-color: #888;
 	text-align: right;
 	text-transform: uppercase;
@@ -171,6 +171,15 @@ label, select {
 {
 	position: relative;
 	left: 0;
+}
+
+.sub-sidebar1
+{
+	position: relative;
+	width: 110%;
+	height: 100%;
+    overflow: auto;
+    padding-right: 17px;
 }
 
 /*
@@ -853,6 +862,12 @@ label
 	width: 80%;
 	padding: 0px;
 	margin: 0px auto;
+}
+
+.new-context h2
+{
+	padding: 5px 0px;
+	margin: 0px;
 }
 
 .new-description, .new-description p, .new-content p

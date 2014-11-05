@@ -87,6 +87,11 @@
 	overflow-y: scroll;
 }
 
+.sub-sidebar1
+{
+	width: 100%;
+}
+
 .nav-visible #inner-wrap, .nav-visible .header {
 	left: 40%;
 }
@@ -146,6 +151,16 @@
 .linesectionleft
 {
 	margin-left: 230px;
+}
+
+.new-context h2
+{
+	padding: 5px 3px;
+}
+
+.new-description, .new-description p, .new-content p
+{
+	padding: 0px 3px;
 }
 
 .footer {
