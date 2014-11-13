@@ -570,6 +570,90 @@ class UploadHandler
                     .implode($failed_versions,', ');
         }
     }
+    
+    protected function scaled_image($file_name) {
+        $file_path = $this->get_upload_path($file_name);
+        
+        $new_file_path = $file_path;
+        
+        if (!function_exists('getimagesize')) {
+            error_log('Function not found: getimagesize');
+            return false;
+        }
+        list($img_width, $img_height) = @getimagesize($file_path);
+        
+        if (!$img_width || !$img_height) {
+            return false;
+        }
+        
+        $max_width = 639;
+        $max_height = 639;
+        
+        $scale = min(
+            $max_width / $img_width,
+            $max_height / $img_height
+        );
+        
+        if (!function_exists('imagecreatetruecolor')) {
+            error_log('Function not found: imagecreatetruecolor');
+            return false;
+        }
+        
+        if (($img_width / $img_height) >= ($max_width / $max_height)) {
+            $new_width = $img_width / ($img_height / $max_height);
+            $new_height = $max_height;
+        } else {
+            $new_width = $max_width;
+            $new_height = $img_height / ($img_width / $max_width);
+        }
+        //$dst_x = 0 - ($new_width - $max_width) / 2;
+        //$dst_y = 0 - ($new_height - $max_height) / 2;
+        $dst_x = 0;
+        $dst_y = 0;
+        
+        $new_img = @imagecreatetruecolor($max_width, $max_height);
+        
+        switch (strtolower(substr(strrchr($file_name, '.'), 1))) {
+            case 'jpg':
+            case 'jpeg':
+                $src_img = @imagecreatefromjpeg($file_path);
+                $write_image = 'imagejpeg';
+                $image_quality = 75;
+                break;
+            case 'gif':
+                @imagecolortransparent($new_img, @imagecolorallocate($new_img, 0, 0, 0));
+                $src_img = @imagecreatefromgif($file_path);
+                $write_image = 'imagegif';
+                $image_quality = null;
+                break;
+            case 'png':
+                @imagecolortransparent($new_img, @imagecolorallocate($new_img, 0, 0, 0));
+                @imagealphablending($new_img, false);
+                @imagesavealpha($new_img, true);
+                $src_img = @imagecreatefrompng($file_path);
+                $write_image = 'imagepng';
+                $image_quality = 9;
+                break;
+            default:
+                $src_img = null;
+        }
+        $success = $src_img && @imagecopyresampled(
+            $new_img,
+            $src_img,
+            $dst_x,
+            $dst_y,
+            0,
+            0,
+            $new_width,
+            $new_height,
+            $img_width,
+            $img_height
+        ) && $write_image($new_img, $new_file_path, $image_quality);
+        // Free up memory (imagedestroy does not delete files):
+        @imagedestroy($src_img);
+        @imagedestroy($new_img);
+        return $success;
+    }
 
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error,
             $index = null, $content_range = null) {
@@ -594,8 +678,52 @@ class UploadHandler
                         fopen($uploaded_file, 'r'),
                         FILE_APPEND
                     );
-                } else {
-                    move_uploaded_file($uploaded_file, $file_path);
+                } else {                    
+                /*
+                	 * Code resize image !!
+                	 */
+                	$max_width = 639;
+                	
+                	switch (strtolower($file->type))
+                	{
+                		case 'image/jpeg':
+                			$image = @imagecreatefromjpeg($uploaded_file);
+                			break;
+                		case 'image/png':
+                			$image = @imagecreatefrompng($uploaded_file);
+                			break;
+                		case 'image/gif':
+                			$image = @imagecreatefromgif($uploaded_file);
+                			break;
+                	}
+                	
+                	$imgWidth = imagesx($image);
+                	$imgHeight = imagesy($image);
+                	
+                	if($imgWidth > $max_width)
+                	{
+                		$ratio = $max_width / $imgWidth;                	
+                	
+	                	$newWidth = ceil($imgWidth*$ratio);
+	                	$newHeight = ceil($imgHeight*$ratio);
+	                	
+	                	$newImg = @imagecreatetruecolor($newWidth, $newHeight);
+	                	
+	                	//Resize old image into new image
+	                	@imagecopyresampled($newImg, $image, 0, 0, 0, 0, $newWidth, $newHeight, $imgWidth, $imgHeight);
+	                	
+	                	//Catch the image data
+	                	ob_start();
+	                	@imagejpeg($newImg, $file_path, 90);
+	                	$data = ob_get_clean();
+	                	
+	                	@imagedestroy($newImg);
+	                	@imagedestroy($image);
+                	}
+                	else 
+                	{
+                    	move_uploaded_file($uploaded_file, $file_path);
+                	}                    
                 }
             } else {
                 // Non-multipart uploads (PUT method support)
@@ -612,13 +740,16 @@ class UploadHandler
                 if (is_int($img_width)) {
                     $this->handle_image_file($file_path, $file);
                 }
-            } else {
+            } 
+            //Ignore it
+            /*
+            else {
                 $file->size = $file_size;
                 if (!$content_range && $this->options['discard_aborted_uploads']) {
                     unlink($file_path);
                     $file->error = 'abort';
                 }
-            }
+            }*/
             $this->set_file_delete_properties($file);
         }
         return $file;

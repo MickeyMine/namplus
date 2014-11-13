@@ -163,6 +163,21 @@
 	padding: 0px 3px;
 }
 
+.title-new-cat
+{
+	font-size: 0.8em;
+}
+
+.title-new-content
+{
+	font-size: 0.7em;
+}
+
+.title-new-context
+{
+	font-size: 0.6em;
+}
+
 .footer {
 	width: 100%;
 }

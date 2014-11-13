@@ -274,7 +274,7 @@ define("EW_UPLOAD_THUMBNAIL_WIDTH", 200, TRUE); // Temporary thumbnail max width
 define("EW_UPLOAD_THUMBNAIL_HEIGHT", 200, TRUE); // Temporary thumbnail max height
 define("EW_UPLOAD_ALLOWED_FILE_EXT", "gif,jpg,jpeg,bmp,png,doc,xls,pdf,zip", TRUE); // Allowed file extensions
 define("EW_IMAGE_ALLOWED_FILE_EXT", "gif,jpg,png,bmp", TRUE); // Allowed file extensions for images
-define("EW_MAX_FILE_SIZE", 4000000, TRUE); // Max file size
+define("EW_MAX_FILE_SIZE", 82493440, TRUE); // Max file size
 define("EW_THUMBNAIL_DEFAULT_WIDTH", 0, TRUE); // Thumbnail default width
 define("EW_THUMBNAIL_DEFAULT_HEIGHT", 0, TRUE); // Thumbnail default height
 define("EW_THUMBNAIL_DEFAULT_QUALITY", 75, TRUE); // Thumbnail default qualtity (JPEG)

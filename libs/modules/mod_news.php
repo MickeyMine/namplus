@@ -50,13 +50,13 @@ class mod_news
 	
 	function GetNewsAlsoLike($contentTitle, $contentDesc, $listNewsId)
 	{
-		$sql = "select * from news where new_status = 1 and new_link_id IS NULL and" ;
+		$sql = "select * from news n where new_status = 1 and new_link_id IS NULL and" ;
         
 		if(isset($listNewsId))
 		{
 		    $sql .= " new_id not in (" . $listNewsId . ") and";
 		}
-		$sql .=	" new_id in (select new_id from news where new_title like N'%" . $contentTitle . "%' or new_description like N'%" . $contentTitle . "%' or new_title like N'%" . $contentDesc . "%' or new_description like N'%" . $contentDesc . "%') order by new_publish_date desc";
+		$sql .=	" new_id in (select new_id from news where new_cat_id = n.new_cat_id or new_title like N'%" . $contentTitle . "%' or new_description like N'%" . $contentTitle . "%' or new_title like N'%" . $contentDesc . "%' or new_description like N'%" . $contentDesc . "%') order by new_publish_date desc";
 		
 		return $this->clsDb->fetchAllArray($sql);
 	}

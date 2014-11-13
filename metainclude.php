@@ -10,6 +10,15 @@ $url = $current_page_URL;
 $og_description = "NAM Plus";
 $image = BASE_NAME . "images/logo.png";
 
+if(isset($_GET['p']))
+{
+    $p = $_GET['p'];
+    
+    if(isset($_GET['pSub']))
+    {
+        $p = $_GET['pSub'];
+    }
+}
 
 ?>
 	<meta name="keywords" content="<?php echo $keywords;?>" />

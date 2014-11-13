@@ -49,7 +49,7 @@ else if(isset($_GET['p']))
 			}
 			$href .= $clsCommon->text_rewrite($currCate[0]['cat_name']) . '-' . $currCate[0]['cat_id'] . '/' ;
 			 
-			$hrefName = $currCate[0]['cat_name'];
+			$hrefName = $clsCommon->text_rewrite($currCate[0]['cat_name']);
 		}
 			
 		$modCategories->closeConnect();
@@ -76,7 +76,7 @@ else if(isset($_GET['p']))
 				
 				
 				$hrefSub = $href . $clsCommon->text_rewrite($currNews[0]['new_title']) . '-' . $currNews[0]['new_id'] . '/';
-				$hrefNameSub = $currNews[0]['new_title'];
+				$hrefNameSub = $clsCommon->label_rewrite_uni($currNews[0]['new_title']);
 			}
 			else
 			{
@@ -87,7 +87,7 @@ else if(isset($_GET['p']))
 				$modOffers->closeConnect();
 				
 				$hrefSub = $href . $clsCommon->text_rewrite($currOffer[0]['offer_title']) . '-' . $currOffer[0]['offer_id'] . '/';
-				$hrefNameSub = $currOffer[0]['offer_title'];
+				$hrefNameSub = $clsCommon->label_rewrite_uni($currOffer[0]['offer_title']);
 			}			
 			
 		}
