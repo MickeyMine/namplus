@@ -30,7 +30,7 @@ if($countNews > 0)
 	<div class="div-content-next" id="content-next">
 		<div class="content-next-box">
 			<div class="content-next-box-left"></div>
-			<div class="content-next-box-main">
+			<div class="content-next-box-main next-template1">
 			<?php 
 				echo 'start with #' . $countNews;
 			?>
@@ -71,9 +71,9 @@ if($countNews > 0)
 					<div class="content-next-box-small-left"></div>
 					<div class="content-next-box-small-main" style="padding-left: 3px; padding-right: 3px;">
 						<a href="<?php echo $subURL;?>" rel="1" style="font-size: 0.6em;">
-					<?php 
-					echo $count;
-					?>						
+    					<?php 
+    					echo $count;
+    					?>						
 						</a>		
 					</div>
 					<div class="content-next-box-small-right"></div>

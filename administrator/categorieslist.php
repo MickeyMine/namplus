@@ -620,6 +620,7 @@ class ccategories_list extends ccategories {
 			$this->UpdateSort($this->cat_name); // cat_name
 			$this->UpdateSort($this->cat_description); // cat_description
 			$this->UpdateSort($this->cat_parent_id); // cat_parent_id
+			$this->UpdateSort($this->cat_is_gallery); // cat_is_gallery
 			$this->UpdateSort($this->cat_is_offer); // cat_is_offer
 			$this->UpdateSort($this->cat_is_competition); // cat_is_competition
 			$this->UpdateSort($this->cat_order); // cat_order
@@ -660,6 +661,7 @@ class ccategories_list extends ccategories {
 				$this->cat_name->setSort("");
 				$this->cat_description->setSort("");
 				$this->cat_parent_id->setSort("");
+				$this->cat_is_gallery->setSort("");
 				$this->cat_is_offer->setSort("");
 				$this->cat_is_competition->setSort("");
 				$this->cat_order->setSort("");
@@ -965,6 +967,7 @@ class ccategories_list extends ccategories {
 		$this->cat_name->setDbValue($rs->fields('cat_name'));
 		$this->cat_description->setDbValue($rs->fields('cat_description'));
 		$this->cat_parent_id->setDbValue($rs->fields('cat_parent_id'));
+		$this->cat_is_gallery->setDbValue($rs->fields('cat_is_gallery'));
 		$this->cat_is_offer->setDbValue($rs->fields('cat_is_offer'));
 		$this->cat_is_competition->setDbValue($rs->fields('cat_is_competition'));
 		$this->cat_order->setDbValue($rs->fields('cat_order'));
@@ -979,6 +982,7 @@ class ccategories_list extends ccategories {
 		$this->cat_name->DbValue = $row['cat_name'];
 		$this->cat_description->DbValue = $row['cat_description'];
 		$this->cat_parent_id->DbValue = $row['cat_parent_id'];
+		$this->cat_is_gallery->DbValue = $row['cat_is_gallery'];
 		$this->cat_is_offer->DbValue = $row['cat_is_offer'];
 		$this->cat_is_competition->DbValue = $row['cat_is_competition'];
 		$this->cat_order->DbValue = $row['cat_order'];
@@ -1028,6 +1032,7 @@ class ccategories_list extends ccategories {
 		// cat_name
 		// cat_description
 		// cat_parent_id
+		// cat_is_gallery
 		// cat_is_offer
 		// cat_is_competition
 		// cat_order
@@ -1070,6 +1075,23 @@ class ccategories_list extends ccategories {
 				$this->cat_parent_id->ViewValue = NULL;
 			}
 			$this->cat_parent_id->ViewCustomAttributes = "";
+
+			// cat_is_gallery
+			if (strval($this->cat_is_gallery->CurrentValue) <> "") {
+				switch ($this->cat_is_gallery->CurrentValue) {
+					case $this->cat_is_gallery->FldTagValue(1):
+						$this->cat_is_gallery->ViewValue = $this->cat_is_gallery->FldTagCaption(1) <> "" ? $this->cat_is_gallery->FldTagCaption(1) : $this->cat_is_gallery->CurrentValue;
+						break;
+					case $this->cat_is_gallery->FldTagValue(2):
+						$this->cat_is_gallery->ViewValue = $this->cat_is_gallery->FldTagCaption(2) <> "" ? $this->cat_is_gallery->FldTagCaption(2) : $this->cat_is_gallery->CurrentValue;
+						break;
+					default:
+						$this->cat_is_gallery->ViewValue = $this->cat_is_gallery->CurrentValue;
+				}
+			} else {
+				$this->cat_is_gallery->ViewValue = NULL;
+			}
+			$this->cat_is_gallery->ViewCustomAttributes = "";
 
 			// cat_is_offer
 			if (strval($this->cat_is_offer->CurrentValue) <> "") {
@@ -1146,6 +1168,11 @@ class ccategories_list extends ccategories {
 			$this->cat_parent_id->LinkCustomAttributes = "";
 			$this->cat_parent_id->HrefValue = "";
 			$this->cat_parent_id->TooltipValue = "";
+
+			// cat_is_gallery
+			$this->cat_is_gallery->LinkCustomAttributes = "";
+			$this->cat_is_gallery->HrefValue = "";
+			$this->cat_is_gallery->TooltipValue = "";
 
 			// cat_is_offer
 			$this->cat_is_offer->LinkCustomAttributes = "";
@@ -1448,6 +1475,15 @@ $categories_list->ListOptions->Render("header", "left");
         </div></div></td>
 	<?php } ?>
 <?php } ?>		
+<?php if ($categories->cat_is_gallery->Visible) { // cat_is_gallery ?>
+	<?php if ($categories->SortUrl($categories->cat_is_gallery) == "") { ?>
+		<td><div id="elh_categories_cat_is_gallery" class="categories_cat_is_gallery"><div class="ewTableHeaderCaption"><?php echo $categories->cat_is_gallery->FldCaption() ?></div></div></td>
+	<?php } else { ?>
+		<td><div class="ewPointer" onclick="ew_Sort(event,'<?php echo $categories->SortUrl($categories->cat_is_gallery) ?>',1);"><div id="elh_categories_cat_is_gallery" class="categories_cat_is_gallery">
+			<div class="ewTableHeaderBtn"><span class="ewTableHeaderCaption"><?php echo $categories->cat_is_gallery->FldCaption() ?></span><span class="ewTableHeaderSort"><?php if ($categories->cat_is_gallery->getSort() == "ASC") { ?><span class="caret ewSortUp"></span><?php } elseif ($categories->cat_is_gallery->getSort() == "DESC") { ?><span class="caret"></span><?php } ?></span></div>
+        </div></div></td>
+	<?php } ?>
+<?php } ?>		
 <?php if ($categories->cat_is_offer->Visible) { // cat_is_offer ?>
 	<?php if ($categories->SortUrl($categories->cat_is_offer) == "") { ?>
 		<td><div id="elh_categories_cat_is_offer" class="categories_cat_is_offer"><div class="ewTableHeaderCaption"><?php echo $categories->cat_is_offer->FldCaption() ?></div></div></td>
@@ -1570,6 +1606,12 @@ $categories_list->ListOptions->Render("body", "left", $categories_list->RowCnt);
 		<td<?php echo $categories->cat_parent_id->CellAttributes() ?>>
 <span<?php echo $categories->cat_parent_id->ViewAttributes() ?>>
 <?php echo $categories->cat_parent_id->ListViewValue() ?></span>
+</td>
+	<?php } ?>
+	<?php if ($categories->cat_is_gallery->Visible) { // cat_is_gallery ?>
+		<td<?php echo $categories->cat_is_gallery->CellAttributes() ?>>
+<span<?php echo $categories->cat_is_gallery->ViewAttributes() ?>>
+<?php echo $categories->cat_is_gallery->ListViewValue() ?></span>
 </td>
 	<?php } ?>
 	<?php if ($categories->cat_is_offer->Visible) { // cat_is_offer ?>

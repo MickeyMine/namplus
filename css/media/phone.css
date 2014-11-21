@@ -77,6 +77,11 @@
 	width: 100%;
 }
 
+.sub-menu-top
+{
+	height: 0px;
+}
+
 .nav-visible #inner-wrap, .nav-visible .header {
 	left: 65%;
 }

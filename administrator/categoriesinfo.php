@@ -11,6 +11,7 @@ class ccategories extends cTable {
 	var $cat_name;
 	var $cat_description;
 	var $cat_parent_id;
+	var $cat_is_gallery;
 	var $cat_is_offer;
 	var $cat_is_competition;
 	var $cat_order;
@@ -57,6 +58,11 @@ class ccategories extends cTable {
 		$this->cat_parent_id = new cField('categories', 'categories', 'x_cat_parent_id', 'cat_parent_id', '`cat_parent_id`', '`cat_parent_id`', 3, -1, FALSE, '`cat_parent_id`', FALSE, FALSE, FALSE, 'FORMATTED TEXT');
 		$this->cat_parent_id->FldDefaultErrMsg = $Language->Phrase("IncorrectInteger");
 		$this->fields['cat_parent_id'] = &$this->cat_parent_id;
+
+		// cat_is_gallery
+		$this->cat_is_gallery = new cField('categories', 'categories', 'x_cat_is_gallery', 'cat_is_gallery', '`cat_is_gallery`', '`cat_is_gallery`', 16, -1, FALSE, '`cat_is_gallery`', FALSE, FALSE, FALSE, 'FORMATTED TEXT');
+		$this->cat_is_gallery->FldDefaultErrMsg = $Language->Phrase("IncorrectInteger");
+		$this->fields['cat_is_gallery'] = &$this->cat_is_gallery;
 
 		// cat_is_offer
 		$this->cat_is_offer = new cField('categories', 'categories', 'x_cat_is_offer', 'cat_is_offer', '`cat_is_offer`', '`cat_is_offer`', 16, -1, FALSE, '`cat_is_offer`', FALSE, FALSE, FALSE, 'FORMATTED TEXT');
@@ -499,6 +505,7 @@ class ccategories extends cTable {
 		$this->cat_name->setDbValue($rs->fields('cat_name'));
 		$this->cat_description->setDbValue($rs->fields('cat_description'));
 		$this->cat_parent_id->setDbValue($rs->fields('cat_parent_id'));
+		$this->cat_is_gallery->setDbValue($rs->fields('cat_is_gallery'));
 		$this->cat_is_offer->setDbValue($rs->fields('cat_is_offer'));
 		$this->cat_is_competition->setDbValue($rs->fields('cat_is_competition'));
 		$this->cat_order->setDbValue($rs->fields('cat_order'));
@@ -517,6 +524,7 @@ class ccategories extends cTable {
 		// cat_name
 		// cat_description
 		// cat_parent_id
+		// cat_is_gallery
 		// cat_is_offer
 		// cat_is_competition
 		// cat_order
@@ -557,6 +565,23 @@ class ccategories extends cTable {
 			$this->cat_parent_id->ViewValue = NULL;
 		}
 		$this->cat_parent_id->ViewCustomAttributes = "";
+
+		// cat_is_gallery
+		if (strval($this->cat_is_gallery->CurrentValue) <> "") {
+			switch ($this->cat_is_gallery->CurrentValue) {
+				case $this->cat_is_gallery->FldTagValue(1):
+					$this->cat_is_gallery->ViewValue = $this->cat_is_gallery->FldTagCaption(1) <> "" ? $this->cat_is_gallery->FldTagCaption(1) : $this->cat_is_gallery->CurrentValue;
+					break;
+				case $this->cat_is_gallery->FldTagValue(2):
+					$this->cat_is_gallery->ViewValue = $this->cat_is_gallery->FldTagCaption(2) <> "" ? $this->cat_is_gallery->FldTagCaption(2) : $this->cat_is_gallery->CurrentValue;
+					break;
+				default:
+					$this->cat_is_gallery->ViewValue = $this->cat_is_gallery->CurrentValue;
+			}
+		} else {
+			$this->cat_is_gallery->ViewValue = NULL;
+		}
+		$this->cat_is_gallery->ViewCustomAttributes = "";
 
 		// cat_is_offer
 		if (strval($this->cat_is_offer->CurrentValue) <> "") {
@@ -634,6 +659,11 @@ class ccategories extends cTable {
 		$this->cat_parent_id->HrefValue = "";
 		$this->cat_parent_id->TooltipValue = "";
 
+		// cat_is_gallery
+		$this->cat_is_gallery->LinkCustomAttributes = "";
+		$this->cat_is_gallery->HrefValue = "";
+		$this->cat_is_gallery->TooltipValue = "";
+
 		// cat_is_offer
 		$this->cat_is_offer->LinkCustomAttributes = "";
 		$this->cat_is_offer->HrefValue = "";
@@ -680,6 +710,7 @@ class ccategories extends cTable {
 				if ($this->cat_name->Exportable) $Doc->ExportCaption($this->cat_name);
 				if ($this->cat_description->Exportable) $Doc->ExportCaption($this->cat_description);
 				if ($this->cat_parent_id->Exportable) $Doc->ExportCaption($this->cat_parent_id);
+				if ($this->cat_is_gallery->Exportable) $Doc->ExportCaption($this->cat_is_gallery);
 				if ($this->cat_is_offer->Exportable) $Doc->ExportCaption($this->cat_is_offer);
 				if ($this->cat_is_competition->Exportable) $Doc->ExportCaption($this->cat_is_competition);
 				if ($this->cat_order->Exportable) $Doc->ExportCaption($this->cat_order);
@@ -689,6 +720,7 @@ class ccategories extends cTable {
 				if ($this->cat_name->Exportable) $Doc->ExportCaption($this->cat_name);
 				if ($this->cat_description->Exportable) $Doc->ExportCaption($this->cat_description);
 				if ($this->cat_parent_id->Exportable) $Doc->ExportCaption($this->cat_parent_id);
+				if ($this->cat_is_gallery->Exportable) $Doc->ExportCaption($this->cat_is_gallery);
 				if ($this->cat_is_offer->Exportable) $Doc->ExportCaption($this->cat_is_offer);
 				if ($this->cat_is_competition->Exportable) $Doc->ExportCaption($this->cat_is_competition);
 				if ($this->cat_order->Exportable) $Doc->ExportCaption($this->cat_order);
@@ -726,6 +758,7 @@ class ccategories extends cTable {
 					if ($this->cat_name->Exportable) $Doc->ExportField($this->cat_name);
 					if ($this->cat_description->Exportable) $Doc->ExportField($this->cat_description);
 					if ($this->cat_parent_id->Exportable) $Doc->ExportField($this->cat_parent_id);
+					if ($this->cat_is_gallery->Exportable) $Doc->ExportField($this->cat_is_gallery);
 					if ($this->cat_is_offer->Exportable) $Doc->ExportField($this->cat_is_offer);
 					if ($this->cat_is_competition->Exportable) $Doc->ExportField($this->cat_is_competition);
 					if ($this->cat_order->Exportable) $Doc->ExportField($this->cat_order);
@@ -735,6 +768,7 @@ class ccategories extends cTable {
 					if ($this->cat_name->Exportable) $Doc->ExportField($this->cat_name);
 					if ($this->cat_description->Exportable) $Doc->ExportField($this->cat_description);
 					if ($this->cat_parent_id->Exportable) $Doc->ExportField($this->cat_parent_id);
+					if ($this->cat_is_gallery->Exportable) $Doc->ExportField($this->cat_is_gallery);
 					if ($this->cat_is_offer->Exportable) $Doc->ExportField($this->cat_is_offer);
 					if ($this->cat_is_competition->Exportable) $Doc->ExportField($this->cat_is_competition);
 					if ($this->cat_order->Exportable) $Doc->ExportField($this->cat_order);

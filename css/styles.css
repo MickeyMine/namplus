@@ -159,7 +159,7 @@ label, select {
 	padding-bottom: 10px;
 	top: 70px;
 	bottom: 0px;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	background-color: #888;
 	text-align: right;
 	text-transform: uppercase;
@@ -176,10 +176,17 @@ label, select {
 .sub-sidebar1
 {
 	position: relative;
-	width: 110%;
+	width: 100%;
 	height: 100%;
-    overflow: auto;
+    /*
+	overflow: auto;
     padding-right: 17px;
+    */
+}
+
+.sub-menu-top
+{
+	height: 21px;
 }
 
 /*
@@ -319,6 +326,7 @@ ul.nav li:hover > ul
 {
 	display: block;
 	left: 100%;
+	z-index: 100;
 }
 
 .styleButton {
@@ -596,7 +604,7 @@ a.button.dark, button.dark, input.dark {
 #div-loading input
 {
 	width: 100%; 
-	line-height: 30px; 
+	line-height: 28px; 
 	font-size: 14pt;
 }
 

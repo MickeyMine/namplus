@@ -464,6 +464,7 @@ class ccategories_view extends ccategories {
 		$this->cat_name->setDbValue($rs->fields('cat_name'));
 		$this->cat_description->setDbValue($rs->fields('cat_description'));
 		$this->cat_parent_id->setDbValue($rs->fields('cat_parent_id'));
+		$this->cat_is_gallery->setDbValue($rs->fields('cat_is_gallery'));
 		$this->cat_is_offer->setDbValue($rs->fields('cat_is_offer'));
 		$this->cat_is_competition->setDbValue($rs->fields('cat_is_competition'));
 		$this->cat_order->setDbValue($rs->fields('cat_order'));
@@ -478,6 +479,7 @@ class ccategories_view extends ccategories {
 		$this->cat_name->DbValue = $row['cat_name'];
 		$this->cat_description->DbValue = $row['cat_description'];
 		$this->cat_parent_id->DbValue = $row['cat_parent_id'];
+		$this->cat_is_gallery->DbValue = $row['cat_is_gallery'];
 		$this->cat_is_offer->DbValue = $row['cat_is_offer'];
 		$this->cat_is_competition->DbValue = $row['cat_is_competition'];
 		$this->cat_order->DbValue = $row['cat_order'];
@@ -505,6 +507,7 @@ class ccategories_view extends ccategories {
 		// cat_name
 		// cat_description
 		// cat_parent_id
+		// cat_is_gallery
 		// cat_is_offer
 		// cat_is_competition
 		// cat_order
@@ -547,6 +550,23 @@ class ccategories_view extends ccategories {
 				$this->cat_parent_id->ViewValue = NULL;
 			}
 			$this->cat_parent_id->ViewCustomAttributes = "";
+
+			// cat_is_gallery
+			if (strval($this->cat_is_gallery->CurrentValue) <> "") {
+				switch ($this->cat_is_gallery->CurrentValue) {
+					case $this->cat_is_gallery->FldTagValue(1):
+						$this->cat_is_gallery->ViewValue = $this->cat_is_gallery->FldTagCaption(1) <> "" ? $this->cat_is_gallery->FldTagCaption(1) : $this->cat_is_gallery->CurrentValue;
+						break;
+					case $this->cat_is_gallery->FldTagValue(2):
+						$this->cat_is_gallery->ViewValue = $this->cat_is_gallery->FldTagCaption(2) <> "" ? $this->cat_is_gallery->FldTagCaption(2) : $this->cat_is_gallery->CurrentValue;
+						break;
+					default:
+						$this->cat_is_gallery->ViewValue = $this->cat_is_gallery->CurrentValue;
+				}
+			} else {
+				$this->cat_is_gallery->ViewValue = NULL;
+			}
+			$this->cat_is_gallery->ViewCustomAttributes = "";
 
 			// cat_is_offer
 			if (strval($this->cat_is_offer->CurrentValue) <> "") {
@@ -623,6 +643,11 @@ class ccategories_view extends ccategories {
 			$this->cat_parent_id->LinkCustomAttributes = "";
 			$this->cat_parent_id->HrefValue = "";
 			$this->cat_parent_id->TooltipValue = "";
+
+			// cat_is_gallery
+			$this->cat_is_gallery->LinkCustomAttributes = "";
+			$this->cat_is_gallery->HrefValue = "";
+			$this->cat_is_gallery->TooltipValue = "";
 
 			// cat_is_offer
 			$this->cat_is_offer->LinkCustomAttributes = "";
@@ -833,6 +858,17 @@ $categories_view->ShowMessage();
 <span id="el_categories_cat_parent_id" class="control-group">
 <span<?php echo $categories->cat_parent_id->ViewAttributes() ?>>
 <?php echo $categories->cat_parent_id->ViewValue ?></span>
+</span>
+</td>
+	</tr>
+<?php } ?>
+<?php if ($categories->cat_is_gallery->Visible) { // cat_is_gallery ?>
+	<tr id="r_cat_is_gallery">
+		<td><span id="elh_categories_cat_is_gallery"><?php echo $categories->cat_is_gallery->FldCaption() ?></span></td>
+		<td<?php echo $categories->cat_is_gallery->CellAttributes() ?>>
+<span id="el_categories_cat_is_gallery" class="control-group">
+<span<?php echo $categories->cat_is_gallery->ViewAttributes() ?>>
+<?php echo $categories->cat_is_gallery->ViewValue ?></span>
 </span>
 </td>
 	</tr>

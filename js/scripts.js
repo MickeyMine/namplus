@@ -88,7 +88,7 @@ $(document).ready(function(){
 		
 	});
 		
-	$('.content-next-news .content-next-box-main').click(function(e){
+	$('.content-next-news .next-template1').click(function(e){
 		e.preventDefault();
 		
 		var selectTop = $('.tabs-line-div .div-content-next .selected');
@@ -818,45 +818,6 @@ $(document).ready(function(){
 		});
 	});
 	
-	/*
-	 * Offer rules
-	 */
-	$('#offer_rules').click(function(e){
-		e.preventDefault();
-		
-		//alert($(this).attr('rel'));
-		
-		$.ajax({
-			type: 'POST',
-			url: 'ajax/loadrules.php',
-			data: 'offerid=' + $(this).attr('rel'),
-			beforeSend: function(){
-				$('#my_popup').popup({
-					autoopen: true,
-					pagecontainer: '.wrapper-map',
-					onopen: function(){
-						$('.wrapper-map').html('Loading.....');
-					},
-				});
-			},
-			success: function(result){	
-				$('#my_popup').popup('hide');
-				
-				$('#my_popup').popup({
-					autoopen: true,
-					pagecontainer: '.wrapper-map',
-					onopen: function(){
-						$('.my_popup_close').css('display', 'block');
-						$('.wrapper-map').html(result);
-					},
-					onclose: function(){
-						$('.my_popup_close').css('display', 'none');
-					}					
-				});
-			},
-		});
-	});	
-	
 	//Invite friend
 	$('#buttonInvite').click(function(e){
 		e.preventDefault();
@@ -1089,4 +1050,5 @@ $(document).ready(function(){
 			},
 		});
 	});
+	
 });

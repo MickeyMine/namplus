@@ -14,7 +14,7 @@ else if(isset($_GET['p']))
 	{
 		$p = $_GET['pSub'];
 	}
-
+    
 	if($p == 'contact-us' || $p == 'register' || $p == 'nam-archive' || $p == 'my-account' || $p == 'change-pass')
 	{
 		$href .= $p;
@@ -33,12 +33,13 @@ else if(isset($_GET['p']))
 	{
 		$arr = split('-', $p);
 		$id = $arr[count($arr) - 1];
-			
+		
 		$modCategories = new mod_categories();
 		$currCate = $modCategories->GetCategory($id);
-			
+	   
 		if(count($currCate) === 1)
 		{
+		    
 			if($currCate[0]['cat_is_offer'] == 0 && $currCate[0]['cat_is_competition'] == 0)
 			{
 				$href .=  'news/';
@@ -49,7 +50,7 @@ else if(isset($_GET['p']))
 			}
 			$href .= $clsCommon->text_rewrite($currCate[0]['cat_name']) . '-' . $currCate[0]['cat_id'] . '/' ;
 			 
-			$hrefName = $clsCommon->text_rewrite($currCate[0]['cat_name']);
+			$hrefName = $currCate[0]['cat_name'];
 		}
 			
 		$modCategories->closeConnect();
@@ -76,7 +77,7 @@ else if(isset($_GET['p']))
 				
 				
 				$hrefSub = $href . $clsCommon->text_rewrite($currNews[0]['new_title']) . '-' . $currNews[0]['new_id'] . '/';
-				$hrefNameSub = $clsCommon->label_rewrite_uni($currNews[0]['new_title']);
+				$hrefNameSub = $currNews[0]['new_title'];
 			}
 			else
 			{
@@ -87,7 +88,7 @@ else if(isset($_GET['p']))
 				$modOffers->closeConnect();
 				
 				$hrefSub = $href . $clsCommon->text_rewrite($currOffer[0]['offer_title']) . '-' . $currOffer[0]['offer_id'] . '/';
-				$hrefNameSub = $clsCommon->label_rewrite_uni($currOffer[0]['offer_title']);
+				$hrefNameSub = $currOffer[0]['offer_title'];
 			}			
 			
 		}

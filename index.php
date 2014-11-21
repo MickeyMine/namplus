@@ -105,6 +105,7 @@ include PATH_CLASS_MODEL . 'mod_customers.php';
 							{
 								$_GET['pSub'] = $_GET['pSub'];
 							}
+							
 							include (PATH_CLASS_VIEW . 'index.php');							
 							?>  
 						</div>

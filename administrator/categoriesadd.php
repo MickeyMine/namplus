@@ -353,6 +353,7 @@ class ccategories_add extends ccategories {
 		$this->cat_description->OldValue = $this->cat_description->CurrentValue;
 		$this->cat_parent_id->CurrentValue = NULL;
 		$this->cat_parent_id->OldValue = $this->cat_parent_id->CurrentValue;
+		$this->cat_is_gallery->CurrentValue = 0;
 		$this->cat_is_offer->CurrentValue = 0;
 		$this->cat_is_competition->CurrentValue = 0;
 		$this->cat_order->CurrentValue = NULL;
@@ -375,6 +376,9 @@ class ccategories_add extends ccategories {
 		if (!$this->cat_parent_id->FldIsDetailKey) {
 			$this->cat_parent_id->setFormValue($objForm->GetValue("x_cat_parent_id"));
 		}
+		if (!$this->cat_is_gallery->FldIsDetailKey) {
+			$this->cat_is_gallery->setFormValue($objForm->GetValue("x_cat_is_gallery"));
+		}
 		if (!$this->cat_is_offer->FldIsDetailKey) {
 			$this->cat_is_offer->setFormValue($objForm->GetValue("x_cat_is_offer"));
 		}
@@ -396,6 +400,7 @@ class ccategories_add extends ccategories {
 		$this->cat_name->CurrentValue = $this->cat_name->FormValue;
 		$this->cat_description->CurrentValue = $this->cat_description->FormValue;
 		$this->cat_parent_id->CurrentValue = $this->cat_parent_id->FormValue;
+		$this->cat_is_gallery->CurrentValue = $this->cat_is_gallery->FormValue;
 		$this->cat_is_offer->CurrentValue = $this->cat_is_offer->FormValue;
 		$this->cat_is_competition->CurrentValue = $this->cat_is_competition->FormValue;
 		$this->cat_order->CurrentValue = $this->cat_order->FormValue;
@@ -435,6 +440,7 @@ class ccategories_add extends ccategories {
 		$this->cat_name->setDbValue($rs->fields('cat_name'));
 		$this->cat_description->setDbValue($rs->fields('cat_description'));
 		$this->cat_parent_id->setDbValue($rs->fields('cat_parent_id'));
+		$this->cat_is_gallery->setDbValue($rs->fields('cat_is_gallery'));
 		$this->cat_is_offer->setDbValue($rs->fields('cat_is_offer'));
 		$this->cat_is_competition->setDbValue($rs->fields('cat_is_competition'));
 		$this->cat_order->setDbValue($rs->fields('cat_order'));
@@ -449,6 +455,7 @@ class ccategories_add extends ccategories {
 		$this->cat_name->DbValue = $row['cat_name'];
 		$this->cat_description->DbValue = $row['cat_description'];
 		$this->cat_parent_id->DbValue = $row['cat_parent_id'];
+		$this->cat_is_gallery->DbValue = $row['cat_is_gallery'];
 		$this->cat_is_offer->DbValue = $row['cat_is_offer'];
 		$this->cat_is_competition->DbValue = $row['cat_is_competition'];
 		$this->cat_order->DbValue = $row['cat_order'];
@@ -492,6 +499,7 @@ class ccategories_add extends ccategories {
 		// cat_name
 		// cat_description
 		// cat_parent_id
+		// cat_is_gallery
 		// cat_is_offer
 		// cat_is_competition
 		// cat_order
@@ -534,6 +542,23 @@ class ccategories_add extends ccategories {
 				$this->cat_parent_id->ViewValue = NULL;
 			}
 			$this->cat_parent_id->ViewCustomAttributes = "";
+
+			// cat_is_gallery
+			if (strval($this->cat_is_gallery->CurrentValue) <> "") {
+				switch ($this->cat_is_gallery->CurrentValue) {
+					case $this->cat_is_gallery->FldTagValue(1):
+						$this->cat_is_gallery->ViewValue = $this->cat_is_gallery->FldTagCaption(1) <> "" ? $this->cat_is_gallery->FldTagCaption(1) : $this->cat_is_gallery->CurrentValue;
+						break;
+					case $this->cat_is_gallery->FldTagValue(2):
+						$this->cat_is_gallery->ViewValue = $this->cat_is_gallery->FldTagCaption(2) <> "" ? $this->cat_is_gallery->FldTagCaption(2) : $this->cat_is_gallery->CurrentValue;
+						break;
+					default:
+						$this->cat_is_gallery->ViewValue = $this->cat_is_gallery->CurrentValue;
+				}
+			} else {
+				$this->cat_is_gallery->ViewValue = NULL;
+			}
+			$this->cat_is_gallery->ViewCustomAttributes = "";
 
 			// cat_is_offer
 			if (strval($this->cat_is_offer->CurrentValue) <> "") {
@@ -606,6 +631,11 @@ class ccategories_add extends ccategories {
 			$this->cat_parent_id->HrefValue = "";
 			$this->cat_parent_id->TooltipValue = "";
 
+			// cat_is_gallery
+			$this->cat_is_gallery->LinkCustomAttributes = "";
+			$this->cat_is_gallery->HrefValue = "";
+			$this->cat_is_gallery->TooltipValue = "";
+
 			// cat_is_offer
 			$this->cat_is_offer->LinkCustomAttributes = "";
 			$this->cat_is_offer->HrefValue = "";
@@ -655,6 +685,14 @@ class ccategories_add extends ccategories {
 			array_unshift($arwrk, array("", $Language->Phrase("PleaseSelect"), "", "", "", "", "", "", ""));
 			$this->cat_parent_id->EditValue = $arwrk;
 
+			// cat_is_gallery
+			$this->cat_is_gallery->EditCustomAttributes = "";
+			$arwrk = array();
+			$arwrk[] = array($this->cat_is_gallery->FldTagValue(1), $this->cat_is_gallery->FldTagCaption(1) <> "" ? $this->cat_is_gallery->FldTagCaption(1) : $this->cat_is_gallery->FldTagValue(1));
+			$arwrk[] = array($this->cat_is_gallery->FldTagValue(2), $this->cat_is_gallery->FldTagCaption(2) <> "" ? $this->cat_is_gallery->FldTagCaption(2) : $this->cat_is_gallery->FldTagValue(2));
+			array_unshift($arwrk, array("", $Language->Phrase("PleaseSelect")));
+			$this->cat_is_gallery->EditValue = $arwrk;
+
 			// cat_is_offer
 			$this->cat_is_offer->EditCustomAttributes = "";
 			$arwrk = array();
@@ -694,6 +732,9 @@ class ccategories_add extends ccategories {
 
 			// cat_parent_id
 			$this->cat_parent_id->HrefValue = "";
+
+			// cat_is_gallery
+			$this->cat_is_gallery->HrefValue = "";
 
 			// cat_is_offer
 			$this->cat_is_offer->HrefValue = "";
@@ -771,6 +812,9 @@ class ccategories_add extends ccategories {
 
 		// cat_parent_id
 		$this->cat_parent_id->SetDbValueDef($rsnew, $this->cat_parent_id->CurrentValue, NULL, FALSE);
+
+		// cat_is_gallery
+		$this->cat_is_gallery->SetDbValueDef($rsnew, $this->cat_is_gallery->CurrentValue, NULL, strval($this->cat_is_gallery->CurrentValue) == "");
 
 		// cat_is_offer
 		$this->cat_is_offer->SetDbValueDef($rsnew, $this->cat_is_offer->CurrentValue, NULL, strval($this->cat_is_offer->CurrentValue) == "");
@@ -1056,6 +1100,33 @@ fcategoriesadd.Lists["x_cat_parent_id"].Options = <?php echo (is_array($categori
 </script>
 </span>
 <?php echo $categories->cat_parent_id->CustomMsg ?></td>
+	</tr>
+<?php } ?>
+<?php if ($categories->cat_is_gallery->Visible) { // cat_is_gallery ?>
+	<tr id="r_cat_is_gallery">
+		<td><span id="elh_categories_cat_is_gallery"><?php echo $categories->cat_is_gallery->FldCaption() ?></span></td>
+		<td<?php echo $categories->cat_is_gallery->CellAttributes() ?>>
+<span id="el_categories_cat_is_gallery" class="control-group">
+<select data-field="x_cat_is_gallery" id="x_cat_is_gallery" name="x_cat_is_gallery"<?php echo $categories->cat_is_gallery->EditAttributes() ?>>
+<?php
+if (is_array($categories->cat_is_gallery->EditValue)) {
+	$arwrk = $categories->cat_is_gallery->EditValue;
+	$rowswrk = count($arwrk);
+	$emptywrk = TRUE;
+	for ($rowcntwrk = 0; $rowcntwrk < $rowswrk; $rowcntwrk++) {
+		$selwrk = (strval($categories->cat_is_gallery->CurrentValue) == strval($arwrk[$rowcntwrk][0])) ? " selected=\"selected\"" : "";
+		if ($selwrk <> "") $emptywrk = FALSE;
+?>
+<option value="<?php echo ew_HtmlEncode($arwrk[$rowcntwrk][0]) ?>"<?php echo $selwrk ?>>
+<?php echo $arwrk[$rowcntwrk][1] ?>
+</option>
+<?php
+	}
+}
+?>
+</select>
+</span>
+<?php echo $categories->cat_is_gallery->CustomMsg ?></td>
 	</tr>
 <?php } ?>
 <?php if ($categories->cat_is_offer->Visible) { // cat_is_offer ?>

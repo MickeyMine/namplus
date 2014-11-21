@@ -11,6 +11,7 @@ if (!isset($Language)) {
 <html>
 <head>
 	<title><?php echo $Language->ProjectPhrase("BodyTitle") ?></title>
+	<link href="../favicon.png" rel="shortcut icon" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="phpcss/jquery.fileupload-ui.css">
 <link rel="stylesheet" type="text/css" href="<?php echo EW_PROJECT_STYLESHEET_FILENAME ?>">

@@ -29,7 +29,7 @@ class mod_categories
 	
 	function GetCategory($catId)
 	{
-		$sql = "SELECT * FROM categories WHERE cat_status = 1 AND cat_parent_id IS NOT NULL AND cat_id = " . $catId . " ORDER BY cat_order";
+		$sql = "SELECT * FROM categories WHERE cat_status = 1 AND cat_id = " . $catId . " ORDER BY cat_order";
 		
 		return $this->clsDb->fetchAllArray($sql);
 	}
