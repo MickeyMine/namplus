@@ -132,7 +132,7 @@
 				<span class="arr-r1">&nbsp;</span>
 			</li>
 			<li>			
-				<a href="<?php echo $hrefSub;?>"><?php echo strtoupper($hrefNameSub);?></a>
+				<a href="<?php echo $hrefSub;?>"><?php echo $hrefNameSub;?></a>
 			</li>
 			<?php 
 			}
@@ -140,7 +140,11 @@
 		</ul>
 	</div>
 <?php
-if(isset($_GET['p']))
+if(isset($_POST['searchcontent']))
+{
+    include (PATH_CLASS_VIEW . 'searchpage.php');
+}
+else if(isset($_GET['p']))
 {
 	$p = $_GET['p'];
 	if($p == 'manager')

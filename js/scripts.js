@@ -818,6 +818,29 @@ $(document).ready(function(){
 		});
 	});
 	
+	//Search from
+	$('#searchForm').validate({
+		debug: true,
+		rules: {
+			searchcontent: {
+				required: true,
+			}
+		},
+		messages:{
+			searchcontent : {
+				required: '',
+			}
+		},
+	});
+		
+	$('#btnSearch').click(function(e){
+		if($('#searchForm').valid() == true)
+		{
+			$('#searchForm')[0].submit();
+		}
+		e.preventDefault();
+	})
+	
 	//Invite friend
 	$('#buttonInvite').click(function(e){
 		e.preventDefault();

@@ -12,7 +12,7 @@ $clsCommon = new SBD_Common();
 		<li>
 			<form id="searchForm" method="post">
 				<div>
-					<input type="text" placeholder="Searching ..." style="width: 100%;" />
+					<input id="searchcontent" name="searchcontent" type="text" placeholder="Searching ..." style="width: 100%;" />
 					<input type="submit" value="" id="btnSearch" />
 				</div>
 			</form>

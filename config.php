@@ -9,7 +9,7 @@ $database = "sbd_namplus_v1";
 
 //defint paging
 define('ADMIN_PAGE_ROWS', 20);
-define('MAX_RECORDS', 2);
+define('MAX_RECORDS', 6);
 define('CUR_ROWS',1);
 
 //define('BASE_NAME', 'http://'.$_SERVER['HTTP_HOST'].'/');

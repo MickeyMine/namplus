@@ -52,10 +52,12 @@ if(isset($_POST['page']) && isset($_POST['maxrecords']) && isset($_POST['sql']))
 						<div class="display-table">
 							<div class="display-table-cell">
 								<div class="div-new-content">
+								    <a href="<?php echo $link;?>">
 									<?php
 									echo '<h3 class="title-new-content">' . $new['new_title'].'</h3>';
 									echo $new['new_description'];
 									?>
+									</a>
 								</div>
 							</div>
 						</div>

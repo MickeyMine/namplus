@@ -16,6 +16,7 @@ RewriteRule ^(.*)$ http://www.namplus.com.vn/$1 [R=301]
 RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?p=$1
 RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ index.php?p=$1&pSub=$2
 RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ index.php?p=$1&pSub=$2&pItem=$3
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+).html$ index.php?p=$1&pSub=$2&pLetter=$3
 
 <IfModule mod_php5.c>
 php_value post_max_size           40M
