@@ -45,10 +45,16 @@ $EW_FONT_PATH = realpath('./phpfont');
 // Database connection info
 define("EW_CONN_HOST", 'localhost', TRUE);
 define("EW_CONN_PORT", 3306, TRUE);
+
 define("EW_CONN_USER", 'root', TRUE);
 define("EW_CONN_PASS", '', TRUE);
 define("EW_CONN_DB", 'sbd_namplus_v1', TRUE);
 
+/*
+define("EW_CONN_USER", 'ujvnvrvva_nam', TRUE);
+define("EW_CONN_PASS", 'Namplus123', TRUE);
+define("EW_CONN_DB", 'ujvnvrvva_namplus', TRUE);
+*/
 // ADODB (Access/SQL Server)
 define("EW_CODEPAGE", 65001, TRUE); // Code page
 

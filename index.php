@@ -52,6 +52,7 @@ include PATH_CLASS_MODEL . 'mod_customers.php';
 	<script type="text/javascript" src="<?php echo BASE_NAME;?>js/scripts.js"></script>
 	<script type="text/javascript" src="<?php echo BASE_NAME; ?>js/jquery.popupoverlay.js"></script>
 	<script type="text/javascript" src="<?php echo BASE_NAME; ?>js/jquery.validate.js"></script>
+	<script type="text/javascript" src="<?php echo BASE_NAME; ?>js/doubletaptogo.js"></script>
 	
 	<script src="<?php echo BASE_NAME;?>js/imgLiquid.js"></script>	
 	<!-- Ad Gallery plugin -->

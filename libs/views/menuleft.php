@@ -34,10 +34,19 @@ $clsCommon = new SBD_Common();
                     $href .= 'offers/';
                 }
                 $href .= $clsCommon->text_rewrite($catParent['cat_name']) . '-' . $catParent['cat_id'];
-                ?>
-                    <li><a href="<?php echo $href ;?>/"><?php echo $catParent['cat_name'];?></a>
-              	<?php
+                
                 $listCatChild = $modCategories->GetCategoriesParentId($catParent['cat_id']);
+                ?>
+                    <li><a href="<?php echo $href ;?>/">
+                            <?php 
+                            if (count($listCatChild) > 0) 
+                                echo '<span>' . $catParent['cat_name'] . '</span>';
+                            else 
+                                echo $catParent['cat_name'];
+                            ?>
+                        </a>
+              	<?php
+                
                 if (count($listCatChild) > 0) {
                     
                     ?>

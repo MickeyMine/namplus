@@ -56,15 +56,16 @@ if(isset($_POST['page']) && isset($_POST['maxrecords']))
 							<div class="display-table-cell">
 								<div class="div-new-content">
 									<div class="title-new-cat"><?php echo $currCategory[0]['cat_name'];?></div>
-									<h3 class="title-new-content">
-										<?php echo $new['new_title'];?>
-									</h3>
-									<div class="title-new-context">
-										<?php									
-										echo $new['new_description'];
-										?>
-									</div>
-									
+									<a href="<?php echo $link;?>">
+    									<h3 class="title-new-content">
+    										<?php echo $new['new_title'];?>
+    									</h3>
+    									<div class="title-new-context">
+    										<?php									
+    										echo $new['new_description'];
+    										?>
+    									</div>
+								   </a>
 								</div>
 							</div>
 						</div>

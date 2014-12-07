@@ -11,7 +11,12 @@
 	{
 		if(count($alsoLike) > 4)
 		{
-			$arr = array_rand($alsoLike, 4);
+			$arrTemp = array_rand($alsoLike, 4);
+			$arr = array();
+			foreach ($arrTemp as $idArr)
+			{
+			    $arr[] = $alsoLike[$idArr];
+			}
 		}
 		else
 		{
@@ -27,10 +32,10 @@
 	$clsCommon = new SBD_Common();
 	
 	$modCategories = new mod_categories();
-	
+		
 	foreach ($arr as $newsItem)
 	{
-		if($newsItem['new_id'] != $id)
+		if($newsItem['new_id'] != '' && $newsItem['new_id'] != $id)
 		{
 		$currCategory = $modCategories->GetCategory($newsItem['new_cat_id']);
 			
@@ -48,7 +53,8 @@
 			</section>
 			<section class="also-like-line">
 				<div>
-    				<img alt="NAM PLUS" src="<?php echo BASE_NAME;?>images/nam-icon-small.png" />
+    				<img alt="NAM PLUS" class="desktop-only" src="<?php echo BASE_NAME;?>images/nam-icon-small.png" />
+    				<img alt="NAM PLUS" class="device-only" src="<?php echo BASE_NAME;?>images/nam-icon-small-16.png" />
 				</div>	
 			</section>
 			<section class="also-like-box">

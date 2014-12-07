@@ -29,7 +29,8 @@ a img { /* this selector removes the default blue border displayed in some brows
 
 /* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
 a:link {
-	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+	/*text-decoration: underline;*/ /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+	text-decoration: none;
 }
 a:visited {
 	text-decoration: underline;
@@ -279,11 +280,18 @@ label, select {
 	width: 18px;
 }
 
+/*
+Menu css
+*/
 ul.nav {
 	list-style: none; /* this removes the list marker */
 	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
 	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
 }
+
+/**
+	First level
+*/
 ul.nav li {
 	/*border-bottom: 1px solid #666;*/ /* this creates the button separation */
 	
@@ -307,6 +315,9 @@ ul.nav .parent-cat:hover
 	background-color: #888;
 }
 
+/*
+	Second level
+*/
 ul.nav li > ul
 {
 	position: absolute;
@@ -749,7 +760,7 @@ label
 	padding: 0px;
 	height: 197px;
 	/*border: 1px solid #777;*/
-	border-top: 1px solid #aaa;
+	border-top: 0px solid #aaa;
 	border-bottom: 1px solid #aaa;
 }
 
@@ -765,7 +776,8 @@ label
 	vertical-align: middle;
 	display: table-cell;
 	width: 100%;
-	text-align: center
+	text-align: center;
+	overflow: hidden;
 }
 
 .div-new-content
@@ -783,6 +795,13 @@ label
 	font-size: 1.1em;
 	text-transform: uppercase;
 }
+
+.div-new-content a
+{
+	color: #777;
+	text-decoration: none,
+}
+
 
 .title-new-content
 {
@@ -1298,6 +1317,11 @@ label
 	padding: 5px 0px;
 	margin: 0px;
 	text-transform: uppercase;
+
+}
+
+#div-loading input: hover
+{
 
 }
 

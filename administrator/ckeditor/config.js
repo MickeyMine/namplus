@@ -9,11 +9,16 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.uiColor = '#AADC6E';
 
 	config.allowedContent = true;
-	
+	/*
 	config.filebrowserBrowseUrl = 'http://namplus.local/administrator/ckeditor/elfinder/elfinder.html?mode=file';
     config.filebrowserImageBrowseUrl = 'http://namplus.local/administrator/ckeditor/elfinder/elfinder.html?mode=image';
     config.filebrowserFlashBrowseUrl = 'http://namplus.local/administrator/ckeditor/elfinder/elfinder.html?mode=flash';
     config.filebrowserWindowHeight = '500';
-
+	*/
+	config.filebrowserBrowseUrl = 'http://namplus.com.vn/administrator/ckeditor/elfinder/elfinder.html?mode=file';
+    config.filebrowserImageBrowseUrl = 'http://namplus.com.vn/administrator/ckeditor/elfinder/elfinder.html?mode=image';
+    config.filebrowserFlashBrowseUrl = 'http://namplus.com.vn/administrator/ckeditor/elfinder/elfinder.html?mode=flash';
+    config.filebrowserWindowHeight = '500';
+    
 	config.extraPlugins = 'youtube';
 };

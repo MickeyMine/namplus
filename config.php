@@ -3,10 +3,15 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 //define connection
 $hostname = "localhost";
+
 $username = "root";
 $password = "";
 $database = "sbd_namplus_v1";
-
+/*
+$username = "ujvnvrvva_nam";
+$password = "Namplus123";
+$database = "ujvnvrvva_namplus";
+*/
 //defint paging
 define('ADMIN_PAGE_ROWS', 20);
 define('MAX_RECORDS', 6);

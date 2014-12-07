@@ -11,6 +11,9 @@ function image_also_resize(alsoLike)
 }
 
 $(document).ready(function(){
+	
+	$('.nav li:has(ul)').doubleTapToGo();
+	
 	//Current url
 	var url = $(location).attr('href');
 	
