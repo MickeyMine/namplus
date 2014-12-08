@@ -1,3 +1,132 @@
 <?php
-echo $_POST['searchcontent'];
+$page = 1;
+
+$maxRecords = MAX_RECORDS;
+$totalRecords = 0;
+$totalPage = 0;
+
+if(isset($_POST['searchcontent']))
+{
+    $modNews = new mod_news();
+    
+    $newList = $modNews->GetSearchNews($_POST['searchcontent']);
+    $totalRecords = count($newList);
+    
+    $totalPage = ceil($totalRecords/$maxRecords);
+    
+    $modNews->closeConnect();
+    
+    $sql = "(lower( new_title ) LIKE N\'%" . strtolower($_POST["searchcontent"]) . "%\' OR lower( new_description ) LIKE N\'%" . strtolower($_POST['searchcontent']) . "%\')";
+?>
+    <script type="text/javascript">
+    	$(document).ready(function(){
+    		var page = <?php echo $page;?>;
+    		
+    		$.ajax({
+    			type: 'POST',
+    			url: '<?php echo BASE_NAME;?>ajax/loadhome.php',
+    			data: {
+    				'page': page,
+    				'maxrecords': <?php echo $maxRecords;?>,
+    	    		'strSql': '<?php echo $sql;?>',
+    			},
+    			beforeSend: function(){
+    				$('#nextpage').css('display', 'block');
+    			},
+    			success: function(result){
+    				$('#nextpage').css('display', 'none');
+    
+    				$('.new-content').append(result);
+    				image_resize('.new-image-right, .new-image-left', '.also-like-inner-box');
+    			},
+    		});
+    
+    		
+    
+    		var load = 1;		
+    		var totalPage = <?php echo $totalPage;?>;
+    
+    		$('#btnLoadContent').click(function(e){
+    			e.preventDefault();
+    			
+    			//alert('Come here <?php echo $page;?>');
+    			load ++;
+    			
+    			//alert('load page : ' + load + ' - total page : ' + totalPage);
+    			
+    			if(load <= totalPage)
+    			{
+    				$('#nextpage').css('display', 'block');
+    				
+    				$.ajax({
+    					type: 'POST',
+    					url: '<?php echo BASE_NAME;?>ajax/loadhome.php',
+    					data: {
+    						'page': load,
+    						'maxrecords': <?php echo $maxRecords;?>,
+    			    	    'strSql': "<?php echo $sql;?>",
+    					},
+    					beforeSend: function(){
+    						$('#nextpage').css('display', 'block');
+    					},
+    					success: function(result){
+    						$('#nextpage').css('display', 'none');
+    
+    						$('.new-content').append(result);
+    						image_resize('.new-image-right, .new-image-left', '.also-like-inner-box');
+    					},
+    				});
+    			}
+    
+    			//image_resize('.new-image-right, .new-image-left', '.also-like-inner-box');
+    			
+    			if(load < totalPage)
+    			{
+    				$(this).val('Read more');
+    			}
+    			else
+    			{
+    				$(this).val('End page');
+    				$(this).attr('disabled', 'disabled');
+    			}
+    		});
+    	});
+    
+    	/* How to use with Window Load (For Webkit Browser like safari and Chrome) */	
+    	$(window).load(function () {			
+    		image_resize('.new-image-right, .new-image-left', '.also-like-inner-box');
+    	});
+    
+    	
+    	/* How to use on Window resize */	
+    	$(window).resize(function () {	
+    		image_resize('.new-image-right, .new-image-left', '.also-like-inner-box');
+    	});
+    	
+    </script>
+    
+    <div class="new-main-content">
+    	<div class="new-content">	
+    		 	 
+    	</div>
+    	
+    	<div id="nextpage" style="display: none">
+    		<img src="<?php echo BASE_NAME?>images/loading4.gif" alt="Loading ..." />
+    	</div>
+    	
+    	<div id="div-loading" style="padding-top: 2px;">
+    		<input type="button" id="btnLoadContent" value="<?php echo ($page >= $totalPage)? 'End page': 'Read more ...'; ?>" 
+    			<?php if($page >= $totalPage) echo 'disabled = "disabled"';?> />
+    	</div>
+    	
+    	<div style="clear: both; height: 2px;">
+    			&nbsp;
+    	</div>
+    </div>
+<?php 
+}
+else
+{
+    echo 'Can not find out your requested !!';
+}
 ?>

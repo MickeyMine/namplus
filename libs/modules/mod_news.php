@@ -56,11 +56,20 @@ class mod_news
 		{
 		    $sql .= " n.new_id not in (" . $listNewsId . ") and";
 		}
-		$sql .=	" n.new_id in (select new_id from news where new_cat_id = n.new_cat_id or new_title like N'%" . 
-		  $contentTitle . "%' or new_description like N'%" . $contentTitle . "%' or new_title like N'%" . 
-		  $contentDesc . "%' or new_description like N'%" . $contentDesc . "%') order by new_publish_date desc";
+		$sql .=	" n.new_id in (select new_id from news where new_cat_id = n.new_cat_id or lower(new_title) like N'%" . 
+		  strtolower($contentTitle) . "%' or lower(new_description) like N'%" . strtolower($contentTitle) . "%' or lower(new_title) like N'%" . 
+		  strtolower($contentDesc) . "%' or lower(new_description) like N'%" . strtolower($contentDesc) . "%') order by new_publish_date desc";
 		
 		return $this->clsDb->fetchAllArray($sql);
+	}
+	
+	function GetSearchNews($searchString)
+	{
+	    $sql = "select * from news where new_status = 1 and " .
+	       "(lower( new_title ) LIKE N'%" . strtolower($searchString) . "%' OR lower( new_description ) LIKE N'%" . strtolower($searchString) . "%')" .
+	       " order by new_publish_date desc";
+	    
+	    return $this->clsDb->fetchAllArray($sql);
 	}
 	
 	public  function GetDataTable($where, $sort)

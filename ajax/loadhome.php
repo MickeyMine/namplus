@@ -31,7 +31,13 @@ if(isset($_POST['page']) && isset($_POST['maxrecords']))
 	}
 	
 	$modNews = new mod_news();
+	
 	$sql = 'new_status = 1 and new_link_id IS NULL';
+	if(isset($_POST['strSql']))
+	{
+	    $sql .= ' and ' . $_POST['strSql'];
+	}
+	
 	$listNew = $modNews->GetDataTableLimit($sql, 'new_publish_date desc', $from, $maxRecords);
 	
 	$modNews->closeConnect();
