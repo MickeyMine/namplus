@@ -71,6 +71,7 @@ label, select {
 
 .container {
 	position: relative;
+	min-width: 100%;
 	width: 100%;
 	max-width: 1260px;/* a max-width may be desirable to keep this layout from getting too wide on a large monitor. This keeps line length more readable. IE6 does not respect this declaration. */	
 	background-color: #FFF;
@@ -326,6 +327,7 @@ ul.nav li > ul
     min-width: 100%;
     height: 100%;
     display: none;
+	z-index: 400;
 }
 
 ul.nav li > ul li
