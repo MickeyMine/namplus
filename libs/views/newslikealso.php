@@ -66,12 +66,13 @@
 								<h3 class="title-new-content">
 									<?php echo $newsItem['new_title'];?>
 								</h3>
+								<!-- 
 								<div class="title-new-context">
 									<?php									
 									echo $newsItem['new_description'];
 									?>
 								</div>
-								
+								 -->
 							</div>
 						</div>
 					</div>

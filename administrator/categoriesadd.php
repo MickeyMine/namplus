@@ -814,7 +814,7 @@ class ccategories_add extends ccategories {
 		$this->cat_parent_id->SetDbValueDef($rsnew, $this->cat_parent_id->CurrentValue, NULL, FALSE);
 
 		// cat_is_gallery
-		$this->cat_is_gallery->SetDbValueDef($rsnew, $this->cat_is_gallery->CurrentValue, NULL, strval($this->cat_is_gallery->CurrentValue) == "");
+		$this->cat_is_gallery->SetDbValueDef($rsnew, $this->cat_is_gallery->CurrentValue, 0, strval($this->cat_is_gallery->CurrentValue) == "");
 
 		// cat_is_offer
 		$this->cat_is_offer->SetDbValueDef($rsnew, $this->cat_is_offer->CurrentValue, NULL, strval($this->cat_is_offer->CurrentValue) == "");

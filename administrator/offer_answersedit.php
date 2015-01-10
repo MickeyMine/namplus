@@ -460,27 +460,7 @@ class coffer_answers_edit extends coffer_answers {
 			$this->answer_id->ViewCustomAttributes = "";
 
 			// question_id
-			if (strval($this->question_id->CurrentValue) <> "") {
-				$sFilterWrk = "`question_id`" . ew_SearchString("=", $this->question_id->CurrentValue, EW_DATATYPE_NUMBER);
-			$sSqlWrk = "SELECT `question_id`, `question_content` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `viewquestionmulti`";
-			$sWhereWrk = "";
-			if ($sFilterWrk <> "") {
-				ew_AddFilter($sWhereWrk, $sFilterWrk);
-			}
-
-			// Call Lookup selecting
-			$this->Lookup_Selecting($this->question_id, $sWhereWrk);
-			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
-				$rswrk = $conn->Execute($sSqlWrk);
-				if ($rswrk && !$rswrk->EOF) { // Lookup values found
-					$this->question_id->ViewValue = $rswrk->fields('DispFld');
-					$rswrk->Close();
-				} else {
-					$this->question_id->ViewValue = $this->question_id->CurrentValue;
-				}
-			} else {
-				$this->question_id->ViewValue = NULL;
-			}
+			$this->question_id->ViewValue = $this->question_id->CurrentValue;
 			$this->question_id->ViewCustomAttributes = "";
 
 			// answer_content
@@ -532,21 +512,8 @@ class coffer_answers_edit extends coffer_answers {
 
 			// question_id
 			$this->question_id->EditCustomAttributes = "";
-			$sFilterWrk = "";
-			$sSqlWrk = "SELECT `question_id`, `question_content` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld`, '' AS `SelectFilterFld`, '' AS `SelectFilterFld2`, '' AS `SelectFilterFld3`, '' AS `SelectFilterFld4` FROM `viewquestionmulti`";
-			$sWhereWrk = "";
-			if ($sFilterWrk <> "") {
-				ew_AddFilter($sWhereWrk, $sFilterWrk);
-			}
-
-			// Call Lookup selecting
-			$this->Lookup_Selecting($this->question_id, $sWhereWrk);
-			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
-			$rswrk = $conn->Execute($sSqlWrk);
-			$arwrk = ($rswrk) ? $rswrk->GetRows() : array();
-			if ($rswrk) $rswrk->Close();
-			array_unshift($arwrk, array("", $Language->Phrase("PleaseSelect"), "", "", "", "", "", "", ""));
-			$this->question_id->EditValue = $arwrk;
+			$this->question_id->EditValue = ew_HtmlEncode($this->question_id->CurrentValue);
+			$this->question_id->PlaceHolder = ew_RemoveHtml($this->question_id->FldCaption());
 
 			// answer_content
 			$this->answer_content->EditCustomAttributes = "";
@@ -598,6 +565,9 @@ class coffer_answers_edit extends coffer_answers {
 			return ($gsFormError == "");
 		if (!$this->question_id->FldIsDetailKey && !is_null($this->question_id->FormValue) && $this->question_id->FormValue == "") {
 			ew_AddMessage($gsFormError, $Language->Phrase("EnterRequiredField") . " - " . $this->question_id->FldCaption());
+		}
+		if (!ew_CheckInteger($this->question_id->FormValue)) {
+			ew_AddMessage($gsFormError, $this->question_id->FldErrMsg());
 		}
 		if (!$this->answer_content->FldIsDetailKey && !is_null($this->answer_content->FormValue) && $this->answer_content->FormValue == "") {
 			ew_AddMessage($gsFormError, $Language->Phrase("EnterRequiredField") . " - " . $this->answer_content->FldCaption());
@@ -804,6 +774,9 @@ foffer_answersedit.Validate = function() {
 			elm = this.GetElements("x" + infix + "_question_id");
 			if (elm && !ew_HasValue(elm))
 				return this.OnError(elm, ewLanguage.Phrase("EnterRequiredField") + " - <?php echo ew_JsEncode2($offer_answers->question_id->FldCaption()) ?>");
+			elm = this.GetElements("x" + infix + "_question_id");
+			if (elm && !ew_CheckInteger(elm.value))
+				return this.OnError(elm, "<?php echo ew_JsEncode2($offer_answers->question_id->FldErrMsg()) ?>");
 			elm = this.GetElements("x" + infix + "_answer_content");
 			if (elm && !ew_HasValue(elm))
 				return this.OnError(elm, ewLanguage.Phrase("EnterRequiredField") + " - <?php echo ew_JsEncode2($offer_answers->answer_content->FldCaption()) ?>");
@@ -846,9 +819,8 @@ foffer_answersedit.ValidateRequired = false;
 <?php } ?>
 
 // Dynamic selection lists
-foffer_answersedit.Lists["x_question_id"] = {"LinkField":"x_question_id","Ajax":null,"AutoFill":false,"DisplayFields":["x_question_content","","",""],"ParentFields":[],"FilterFields":[],"Options":[]};
-
 // Form object for search
+
 </script>
 <script type="text/javascript">
 
@@ -881,27 +853,7 @@ $offer_answers_edit->ShowMessage();
 		<td><span id="elh_offer_answers_question_id"><?php echo $offer_answers->question_id->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></span></td>
 		<td<?php echo $offer_answers->question_id->CellAttributes() ?>>
 <span id="el_offer_answers_question_id" class="control-group">
-<select data-field="x_question_id" id="x_question_id" name="x_question_id"<?php echo $offer_answers->question_id->EditAttributes() ?>>
-<?php
-if (is_array($offer_answers->question_id->EditValue)) {
-	$arwrk = $offer_answers->question_id->EditValue;
-	$rowswrk = count($arwrk);
-	$emptywrk = TRUE;
-	for ($rowcntwrk = 0; $rowcntwrk < $rowswrk; $rowcntwrk++) {
-		$selwrk = (strval($offer_answers->question_id->CurrentValue) == strval($arwrk[$rowcntwrk][0])) ? " selected=\"selected\"" : "";
-		if ($selwrk <> "") $emptywrk = FALSE;
-?>
-<option value="<?php echo ew_HtmlEncode($arwrk[$rowcntwrk][0]) ?>"<?php echo $selwrk ?>>
-<?php echo $arwrk[$rowcntwrk][1] ?>
-</option>
-<?php
-	}
-}
-?>
-</select>
-<script type="text/javascript">
-foffer_answersedit.Lists["x_question_id"].Options = <?php echo (is_array($offer_answers->question_id->EditValue)) ? ew_ArrayToJson($offer_answers->question_id->EditValue, 1) : "[]" ?>;
-</script>
+<input type="text" data-field="x_question_id" name="x_question_id" id="x_question_id" size="30" placeholder="<?php echo ew_HtmlEncode($offer_answers->question_id->PlaceHolder) ?>" value="<?php echo $offer_answers->question_id->EditValue ?>"<?php echo $offer_answers->question_id->EditAttributes() ?>>
 </span>
 <?php echo $offer_answers->question_id->CustomMsg ?></td>
 	</tr>

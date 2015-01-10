@@ -1250,6 +1250,72 @@ $payment_type_list->RenderOtherOptions();
 $payment_type_list->ShowMessage();
 ?>
 <table class="ewGrid"><tr><td class="ewGridContent">
+<div class="ewGridUpperPanel">
+<?php if ($payment_type->CurrentAction <> "gridadd" && $payment_type->CurrentAction <> "gridedit") { ?>
+<form name="ewPagerForm" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>">
+<table class="ewPager">
+<tr><td>
+<?php if (!isset($payment_type_list->Pager)) $payment_type_list->Pager = new cPrevNextPager($payment_type_list->StartRec, $payment_type_list->DisplayRecs, $payment_type_list->TotalRecs) ?>
+<?php if ($payment_type_list->Pager->RecordCount > 0) { ?>
+<table class="ewStdTable"><tbody><tr><td>
+	<?php echo $Language->Phrase("Page") ?>&nbsp;
+<div class="input-prepend input-append">
+<!--first page button-->
+	<?php if ($payment_type_list->Pager->FirstButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $payment_type_list->PageUrl() ?>start=<?php echo $payment_type_list->Pager->FirstButton->Start ?>"><i class="icon-step-backward"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-step-backward"></i></a>
+	<?php } ?>
+<!--previous page button-->
+	<?php if ($payment_type_list->Pager->PrevButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $payment_type_list->PageUrl() ?>start=<?php echo $payment_type_list->Pager->PrevButton->Start ?>"><i class="icon-prev"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-prev"></i></a>
+	<?php } ?>
+<!--current page number-->
+	<input class="input-mini" type="text" name="<?php echo EW_TABLE_PAGE_NO ?>" value="<?php echo $payment_type_list->Pager->CurrentPage ?>">
+<!--next page button-->
+	<?php if ($payment_type_list->Pager->NextButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $payment_type_list->PageUrl() ?>start=<?php echo $payment_type_list->Pager->NextButton->Start ?>"><i class="icon-play"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-play"></i></a>
+	<?php } ?>
+<!--last page button-->
+	<?php if ($payment_type_list->Pager->LastButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $payment_type_list->PageUrl() ?>start=<?php echo $payment_type_list->Pager->LastButton->Start ?>"><i class="icon-step-forward"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-step-forward"></i></a>
+	<?php } ?>
+</div>
+	&nbsp;<?php echo $Language->Phrase("of") ?>&nbsp;<?php echo $payment_type_list->Pager->PageCount ?>
+</td>
+<td>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php echo $Language->Phrase("Record") ?>&nbsp;<?php echo $payment_type_list->Pager->FromIndex ?>&nbsp;<?php echo $Language->Phrase("To") ?>&nbsp;<?php echo $payment_type_list->Pager->ToIndex ?>&nbsp;<?php echo $Language->Phrase("Of") ?>&nbsp;<?php echo $payment_type_list->Pager->RecordCount ?>
+</td>
+</tr></tbody></table>
+<?php } else { ?>
+	<?php if ($Security->CanList()) { ?>
+	<?php if ($payment_type_list->SearchWhere == "0=101") { ?>
+	<p><?php echo $Language->Phrase("EnterSearchCriteria") ?></p>
+	<?php } else { ?>
+	<p><?php echo $Language->Phrase("NoRecord") ?></p>
+	<?php } ?>
+	<?php } else { ?>
+	<p><?php echo $Language->Phrase("NoPermission") ?></p>
+	<?php } ?>
+<?php } ?>
+</td>
+</tr></table>
+</form>
+<?php } ?>
+<div class="ewListOtherOptions">
+<?php
+	foreach ($payment_type_list->OtherOptions as &$option)
+		$option->Render("body");
+?>
+</div>
+</div>
 <form name="fpayment_typelist" id="fpayment_typelist" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>" method="post">
 <input type="hidden" name="t" value="payment_type">
 <div id="gmp_payment_type" class="ewGridMiddlePanel">
@@ -1386,6 +1452,7 @@ $payment_type_list->ListOptions->Render("body", "right", $payment_type_list->Row
 if ($payment_type_list->Recordset)
 	$payment_type_list->Recordset->Close();
 ?>
+<?php if ($payment_type_list->TotalRecs > 0) { ?>
 <div class="ewGridLowerPanel">
 <?php if ($payment_type->CurrentAction <> "gridadd" && $payment_type->CurrentAction <> "gridedit") { ?>
 <form name="ewPagerForm" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>">
@@ -1452,6 +1519,7 @@ if ($payment_type_list->Recordset)
 ?>
 </div>
 </div>
+<?php } ?>
 </td></tr></table>
 <script type="text/javascript">
 fpayment_typelistsrch.Init();

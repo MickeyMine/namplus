@@ -1281,6 +1281,72 @@ $register_form_list->RenderOtherOptions();
 $register_form_list->ShowMessage();
 ?>
 <table class="ewGrid"><tr><td class="ewGridContent">
+<div class="ewGridUpperPanel">
+<?php if ($register_form->CurrentAction <> "gridadd" && $register_form->CurrentAction <> "gridedit") { ?>
+<form name="ewPagerForm" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>">
+<table class="ewPager">
+<tr><td>
+<?php if (!isset($register_form_list->Pager)) $register_form_list->Pager = new cPrevNextPager($register_form_list->StartRec, $register_form_list->DisplayRecs, $register_form_list->TotalRecs) ?>
+<?php if ($register_form_list->Pager->RecordCount > 0) { ?>
+<table class="ewStdTable"><tbody><tr><td>
+	<?php echo $Language->Phrase("Page") ?>&nbsp;
+<div class="input-prepend input-append">
+<!--first page button-->
+	<?php if ($register_form_list->Pager->FirstButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $register_form_list->PageUrl() ?>start=<?php echo $register_form_list->Pager->FirstButton->Start ?>"><i class="icon-step-backward"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-step-backward"></i></a>
+	<?php } ?>
+<!--previous page button-->
+	<?php if ($register_form_list->Pager->PrevButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $register_form_list->PageUrl() ?>start=<?php echo $register_form_list->Pager->PrevButton->Start ?>"><i class="icon-prev"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-prev"></i></a>
+	<?php } ?>
+<!--current page number-->
+	<input class="input-mini" type="text" name="<?php echo EW_TABLE_PAGE_NO ?>" value="<?php echo $register_form_list->Pager->CurrentPage ?>">
+<!--next page button-->
+	<?php if ($register_form_list->Pager->NextButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $register_form_list->PageUrl() ?>start=<?php echo $register_form_list->Pager->NextButton->Start ?>"><i class="icon-play"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-play"></i></a>
+	<?php } ?>
+<!--last page button-->
+	<?php if ($register_form_list->Pager->LastButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $register_form_list->PageUrl() ?>start=<?php echo $register_form_list->Pager->LastButton->Start ?>"><i class="icon-step-forward"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-step-forward"></i></a>
+	<?php } ?>
+</div>
+	&nbsp;<?php echo $Language->Phrase("of") ?>&nbsp;<?php echo $register_form_list->Pager->PageCount ?>
+</td>
+<td>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php echo $Language->Phrase("Record") ?>&nbsp;<?php echo $register_form_list->Pager->FromIndex ?>&nbsp;<?php echo $Language->Phrase("To") ?>&nbsp;<?php echo $register_form_list->Pager->ToIndex ?>&nbsp;<?php echo $Language->Phrase("Of") ?>&nbsp;<?php echo $register_form_list->Pager->RecordCount ?>
+</td>
+</tr></tbody></table>
+<?php } else { ?>
+	<?php if ($Security->CanList()) { ?>
+	<?php if ($register_form_list->SearchWhere == "0=101") { ?>
+	<p><?php echo $Language->Phrase("EnterSearchCriteria") ?></p>
+	<?php } else { ?>
+	<p><?php echo $Language->Phrase("NoRecord") ?></p>
+	<?php } ?>
+	<?php } else { ?>
+	<p><?php echo $Language->Phrase("NoPermission") ?></p>
+	<?php } ?>
+<?php } ?>
+</td>
+</tr></table>
+</form>
+<?php } ?>
+<div class="ewListOtherOptions">
+<?php
+	foreach ($register_form_list->OtherOptions as &$option)
+		$option->Render("body");
+?>
+</div>
+</div>
 <form name="fregister_formlist" id="fregister_formlist" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>" method="post">
 <input type="hidden" name="t" value="register_form">
 <div id="gmp_register_form" class="ewGridMiddlePanel">
@@ -1432,6 +1498,7 @@ $register_form_list->ListOptions->Render("body", "right", $register_form_list->R
 if ($register_form_list->Recordset)
 	$register_form_list->Recordset->Close();
 ?>
+<?php if ($register_form_list->TotalRecs > 0) { ?>
 <div class="ewGridLowerPanel">
 <?php if ($register_form->CurrentAction <> "gridadd" && $register_form->CurrentAction <> "gridedit") { ?>
 <form name="ewPagerForm" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>">
@@ -1498,6 +1565,7 @@ if ($register_form_list->Recordset)
 ?>
 </div>
 </div>
+<?php } ?>
 </td></tr></table>
 <script type="text/javascript">
 fregister_formlistsrch.Init();

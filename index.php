@@ -18,6 +18,7 @@ include PATH_CLASS_MODEL . 'mod_news.php';
 include PATH_CLASS_MODEL . 'mod_offers.php';
 include PATH_CLASS_MODEL . 'mod_offer_locations.php';
 include PATH_CLASS_MODEL . 'mod_customers.php';
+include PATH_CLASS_MODEL . 'mod_contact_us.php';
 ?>
 <!doctype html>
 <html>
@@ -130,7 +131,9 @@ include PATH_CLASS_MODEL . 'mod_customers.php';
 				
 				<!-- end .container -->
 				<!-- Element to pop up -->
-				<div id="my_popup">					
+				<div id="my_popup">		
+				    <div class="my_popup_close">
+				    </div>			
 					<div class="wrapper-map"></div>
 				</div>
 				<!-- end .container -->

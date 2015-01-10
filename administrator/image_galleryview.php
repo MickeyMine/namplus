@@ -525,10 +525,7 @@ class cimage_gallery_view extends cimage_gallery {
 
 			// img_path
 			if (!ew_Empty($this->img_path->Upload->DbValue)) {
-				$this->img_path->ImageWidth = 80;
-				$this->img_path->ImageHeight = 0;
-				$this->img_path->ImageAlt = $this->img_path->FldAlt();
-				$this->img_path->ViewValue = ew_UploadPathEx(FALSE, $this->img_path->UploadPath) . $this->img_path->Upload->DbValue;
+				$this->img_path->ViewValue = $this->img_path->Upload->DbValue;
 			} else {
 				$this->img_path->ViewValue = "";
 			}
@@ -884,20 +881,34 @@ $image_gallery_view->ShowMessage();
 		<td><span id="elh_image_gallery_img_path"><?php echo $image_gallery->img_path->FldCaption() ?></span></td>
 		<td<?php echo $image_gallery->img_path->CellAttributes() ?>>
 <span id="el_image_gallery_img_path" class="control-group">
-<span>
+<span<?php echo $image_gallery->img_path->ViewAttributes() ?>>
+<?php
+$Files = explode(",", $image_gallery->img_path->Upload->DbValue);
+$HrefValue = $image_gallery->img_path->HrefValue;
+$FileCount = count($Files);
+for ($i = 0; $i < $FileCount; $i++) {
+if ($Files[$i] <> "") {
+$image_gallery->img_path->ViewValue = $Files[$i];
+$image_gallery->img_path->HrefValue = str_replace("%u", ew_HtmlEncode(ew_UploadPathEx(FALSE, $image_gallery->img_path->UploadPath) . $Files[$i]), $HrefValue);
+$Files[$i] = str_replace("%f", ew_HtmlEncode(ew_UploadPathEx(FALSE, $image_gallery->img_path->UploadPath) . $Files[$i]), $image_gallery->img_path->ViewValue);
+?>
 <?php if ($image_gallery->img_path->LinkAttributes() <> "") { ?>
 <?php if (!empty($image_gallery->img_path->Upload->DbValue)) { ?>
-<?php echo ew_GetFileViewTag($image_gallery->img_path, $image_gallery->img_path->ViewValue) ?>
+<?php echo $image_gallery->img_path->ViewValue ?>
 <?php } elseif (!in_array($image_gallery->CurrentAction, array("I", "edit", "gridedit"))) { ?>	
 &nbsp;
 <?php } ?>
 <?php } else { ?>
 <?php if (!empty($image_gallery->img_path->Upload->DbValue)) { ?>
-<?php echo ew_GetFileViewTag($image_gallery->img_path, $image_gallery->img_path->ViewValue) ?>
+<?php echo $image_gallery->img_path->ViewValue ?>
 <?php } elseif (!in_array($image_gallery->CurrentAction, array("I", "edit", "gridedit"))) { ?>	
 &nbsp;
 <?php } ?>
 <?php } ?>
+<?php
+}
+}
+?>
 </span>
 </span>
 </td>

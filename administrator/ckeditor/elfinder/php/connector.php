@@ -35,8 +35,38 @@ $opts = array(
 			'URL'           => dirname($_SERVER['PHP_SELF']) . '/../../../../uploads/', // URL to files (REQUIRED)
 			'accessControl' => 'access'             // disable and hide dot starting files (OPTIONAL)
 		)
-	)
+	),
+    'bind' => array(
+        'upload resize' => array($this, 'myResize')
+    ),
 );
+
+/**
+ * Upload/resize callback catcher, resizes image to 320x240px/240x320px respectively, keeps ratio
+ *
+ * @param  string   $cmd       command name
+ * @param  array    $result    command result
+ * @param  array    $args      command arguments from client
+ * @param  object   $elfinder  elFinder instance
+ * @return true     Forces elFinder to sync all events
+ * */
+function myResize($cmd, $result, $args, $elfinder) {
+    $files = $result['added'];
+    foreach ($files as $file) {
+        $arg = array(
+            'target' => $file['hash'],
+            'width' => 639,
+            'height' => 639,
+            'x' => 0,
+            'y' => 0,
+            'mode' => 'propresize',
+            'degree' => 0
+        );
+        $elfinder->exec('resize', $arg);
+    }
+
+    return true;
+}
 
 // run elFinder
 $connector = new elFinderConnector(new elFinder($opts));

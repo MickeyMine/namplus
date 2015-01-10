@@ -1339,6 +1339,72 @@ $users_list->RenderOtherOptions();
 $users_list->ShowMessage();
 ?>
 <table class="ewGrid"><tr><td class="ewGridContent">
+<div class="ewGridUpperPanel">
+<?php if ($users->CurrentAction <> "gridadd" && $users->CurrentAction <> "gridedit") { ?>
+<form name="ewPagerForm" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>">
+<table class="ewPager">
+<tr><td>
+<?php if (!isset($users_list->Pager)) $users_list->Pager = new cPrevNextPager($users_list->StartRec, $users_list->DisplayRecs, $users_list->TotalRecs) ?>
+<?php if ($users_list->Pager->RecordCount > 0) { ?>
+<table class="ewStdTable"><tbody><tr><td>
+	<?php echo $Language->Phrase("Page") ?>&nbsp;
+<div class="input-prepend input-append">
+<!--first page button-->
+	<?php if ($users_list->Pager->FirstButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $users_list->PageUrl() ?>start=<?php echo $users_list->Pager->FirstButton->Start ?>"><i class="icon-step-backward"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-step-backward"></i></a>
+	<?php } ?>
+<!--previous page button-->
+	<?php if ($users_list->Pager->PrevButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $users_list->PageUrl() ?>start=<?php echo $users_list->Pager->PrevButton->Start ?>"><i class="icon-prev"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-prev"></i></a>
+	<?php } ?>
+<!--current page number-->
+	<input class="input-mini" type="text" name="<?php echo EW_TABLE_PAGE_NO ?>" value="<?php echo $users_list->Pager->CurrentPage ?>">
+<!--next page button-->
+	<?php if ($users_list->Pager->NextButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $users_list->PageUrl() ?>start=<?php echo $users_list->Pager->NextButton->Start ?>"><i class="icon-play"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-play"></i></a>
+	<?php } ?>
+<!--last page button-->
+	<?php if ($users_list->Pager->LastButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $users_list->PageUrl() ?>start=<?php echo $users_list->Pager->LastButton->Start ?>"><i class="icon-step-forward"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-step-forward"></i></a>
+	<?php } ?>
+</div>
+	&nbsp;<?php echo $Language->Phrase("of") ?>&nbsp;<?php echo $users_list->Pager->PageCount ?>
+</td>
+<td>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php echo $Language->Phrase("Record") ?>&nbsp;<?php echo $users_list->Pager->FromIndex ?>&nbsp;<?php echo $Language->Phrase("To") ?>&nbsp;<?php echo $users_list->Pager->ToIndex ?>&nbsp;<?php echo $Language->Phrase("Of") ?>&nbsp;<?php echo $users_list->Pager->RecordCount ?>
+</td>
+</tr></tbody></table>
+<?php } else { ?>
+	<?php if ($Security->CanList()) { ?>
+	<?php if ($users_list->SearchWhere == "0=101") { ?>
+	<p><?php echo $Language->Phrase("EnterSearchCriteria") ?></p>
+	<?php } else { ?>
+	<p><?php echo $Language->Phrase("NoRecord") ?></p>
+	<?php } ?>
+	<?php } else { ?>
+	<p><?php echo $Language->Phrase("NoPermission") ?></p>
+	<?php } ?>
+<?php } ?>
+</td>
+</tr></table>
+</form>
+<?php } ?>
+<div class="ewListOtherOptions">
+<?php
+	foreach ($users_list->OtherOptions as &$option)
+		$option->Render("body");
+?>
+</div>
+</div>
 <form name="fuserslist" id="fuserslist" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>" method="post">
 <input type="hidden" name="t" value="users">
 <div id="gmp_users" class="ewGridMiddlePanel">
@@ -1520,6 +1586,7 @@ $users_list->ListOptions->Render("body", "right", $users_list->RowCnt);
 if ($users_list->Recordset)
 	$users_list->Recordset->Close();
 ?>
+<?php if ($users_list->TotalRecs > 0) { ?>
 <div class="ewGridLowerPanel">
 <?php if ($users->CurrentAction <> "gridadd" && $users->CurrentAction <> "gridedit") { ?>
 <form name="ewPagerForm" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>">
@@ -1586,6 +1653,7 @@ if ($users_list->Recordset)
 ?>
 </div>
 </div>
+<?php } ?>
 </td></tr></table>
 <script type="text/javascript">
 fuserslistsrch.Init();

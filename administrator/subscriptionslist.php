@@ -1250,6 +1250,72 @@ $subscriptions_list->RenderOtherOptions();
 $subscriptions_list->ShowMessage();
 ?>
 <table class="ewGrid"><tr><td class="ewGridContent">
+<div class="ewGridUpperPanel">
+<?php if ($subscriptions->CurrentAction <> "gridadd" && $subscriptions->CurrentAction <> "gridedit") { ?>
+<form name="ewPagerForm" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>">
+<table class="ewPager">
+<tr><td>
+<?php if (!isset($subscriptions_list->Pager)) $subscriptions_list->Pager = new cPrevNextPager($subscriptions_list->StartRec, $subscriptions_list->DisplayRecs, $subscriptions_list->TotalRecs) ?>
+<?php if ($subscriptions_list->Pager->RecordCount > 0) { ?>
+<table class="ewStdTable"><tbody><tr><td>
+	<?php echo $Language->Phrase("Page") ?>&nbsp;
+<div class="input-prepend input-append">
+<!--first page button-->
+	<?php if ($subscriptions_list->Pager->FirstButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $subscriptions_list->PageUrl() ?>start=<?php echo $subscriptions_list->Pager->FirstButton->Start ?>"><i class="icon-step-backward"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-step-backward"></i></a>
+	<?php } ?>
+<!--previous page button-->
+	<?php if ($subscriptions_list->Pager->PrevButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $subscriptions_list->PageUrl() ?>start=<?php echo $subscriptions_list->Pager->PrevButton->Start ?>"><i class="icon-prev"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-prev"></i></a>
+	<?php } ?>
+<!--current page number-->
+	<input class="input-mini" type="text" name="<?php echo EW_TABLE_PAGE_NO ?>" value="<?php echo $subscriptions_list->Pager->CurrentPage ?>">
+<!--next page button-->
+	<?php if ($subscriptions_list->Pager->NextButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $subscriptions_list->PageUrl() ?>start=<?php echo $subscriptions_list->Pager->NextButton->Start ?>"><i class="icon-play"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-play"></i></a>
+	<?php } ?>
+<!--last page button-->
+	<?php if ($subscriptions_list->Pager->LastButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $subscriptions_list->PageUrl() ?>start=<?php echo $subscriptions_list->Pager->LastButton->Start ?>"><i class="icon-step-forward"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-step-forward"></i></a>
+	<?php } ?>
+</div>
+	&nbsp;<?php echo $Language->Phrase("of") ?>&nbsp;<?php echo $subscriptions_list->Pager->PageCount ?>
+</td>
+<td>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php echo $Language->Phrase("Record") ?>&nbsp;<?php echo $subscriptions_list->Pager->FromIndex ?>&nbsp;<?php echo $Language->Phrase("To") ?>&nbsp;<?php echo $subscriptions_list->Pager->ToIndex ?>&nbsp;<?php echo $Language->Phrase("Of") ?>&nbsp;<?php echo $subscriptions_list->Pager->RecordCount ?>
+</td>
+</tr></tbody></table>
+<?php } else { ?>
+	<?php if ($Security->CanList()) { ?>
+	<?php if ($subscriptions_list->SearchWhere == "0=101") { ?>
+	<p><?php echo $Language->Phrase("EnterSearchCriteria") ?></p>
+	<?php } else { ?>
+	<p><?php echo $Language->Phrase("NoRecord") ?></p>
+	<?php } ?>
+	<?php } else { ?>
+	<p><?php echo $Language->Phrase("NoPermission") ?></p>
+	<?php } ?>
+<?php } ?>
+</td>
+</tr></table>
+</form>
+<?php } ?>
+<div class="ewListOtherOptions">
+<?php
+	foreach ($subscriptions_list->OtherOptions as &$option)
+		$option->Render("body");
+?>
+</div>
+</div>
 <form name="fsubscriptionslist" id="fsubscriptionslist" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>" method="post">
 <input type="hidden" name="t" value="subscriptions">
 <div id="gmp_subscriptions" class="ewGridMiddlePanel">
@@ -1386,6 +1452,7 @@ $subscriptions_list->ListOptions->Render("body", "right", $subscriptions_list->R
 if ($subscriptions_list->Recordset)
 	$subscriptions_list->Recordset->Close();
 ?>
+<?php if ($subscriptions_list->TotalRecs > 0) { ?>
 <div class="ewGridLowerPanel">
 <?php if ($subscriptions->CurrentAction <> "gridadd" && $subscriptions->CurrentAction <> "gridedit") { ?>
 <form name="ewPagerForm" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>">
@@ -1452,6 +1519,7 @@ if ($subscriptions_list->Recordset)
 ?>
 </div>
 </div>
+<?php } ?>
 </td></tr></table>
 <script type="text/javascript">
 fsubscriptionslistsrch.Init();

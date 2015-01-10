@@ -66,7 +66,7 @@ if(isset($_POST['page']) && isset($_POST['maxrecords']))
     									<h3 class="title-new-content">
     										<?php echo $new['new_title'];?>
     									</h3>
-    									<div class="title-new-context">
+    									<div class="title-new-context iphone-only">
     										<?php									
     										echo $new['new_description'];
     										?>

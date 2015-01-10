@@ -32,7 +32,7 @@ class ccategories extends cTable {
 		$this->ExportPageBreakCount = 0; // Page break per every n record (PDF only)
 		$this->ExportPageOrientation = "portrait"; // Page orientation (PDF only)
 		$this->ExportPageSize = "a4"; // Page size (PDF only)
-		$this->DetailAdd = FALSE; // Allow detail add
+		$this->DetailAdd = TRUE; // Allow detail add
 		$this->DetailEdit = FALSE; // Allow detail edit
 		$this->DetailView = FALSE; // Allow detail view
 		$this->ShowMultipleDetails = FALSE; // Show multiple details
@@ -127,7 +127,7 @@ class ccategories extends cTable {
 	}
 
 	function SqlOrderBy() { // Order By
-		return "";
+		return "`cat_id` DESC";
 	}
 
 	// Check if Anonymous User is allowed

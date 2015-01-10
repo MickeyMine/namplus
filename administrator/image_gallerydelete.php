@@ -407,10 +407,7 @@ class cimage_gallery_delete extends cimage_gallery {
 
 			// img_path
 			if (!ew_Empty($this->img_path->Upload->DbValue)) {
-				$this->img_path->ImageWidth = 80;
-				$this->img_path->ImageHeight = 0;
-				$this->img_path->ImageAlt = $this->img_path->FldAlt();
-				$this->img_path->ViewValue = ew_UploadPathEx(FALSE, $this->img_path->UploadPath) . $this->img_path->Upload->DbValue;
+				$this->img_path->ViewValue = $this->img_path->Upload->DbValue;
 			} else {
 				$this->img_path->ViewValue = "";
 			}
@@ -651,7 +648,11 @@ class cimage_gallery_delete extends cimage_gallery {
 				if ($sThisKey <> "") $sThisKey .= $GLOBALS["EW_COMPOSITE_KEY_SEPARATOR"];
 				$sThisKey .= $row['img_id'];
 				$this->LoadDbValues($row);
-				@unlink(ew_UploadPathEx(TRUE, $this->img_path->OldUploadPath) . $row['img_path']);
+				$OldFiles = explode(",", $row['img_path']);
+				$FileCount = count($OldFiles);
+				for ($i = 0; $i < $FileCount; $i++) {
+					@unlink(ew_UploadPathEx(TRUE, $this->img_path->OldUploadPath) . $OldFiles[$i]);
+				}
 				$conn->raiseErrorFn = 'ew_ErrorFn';
 				$DeleteRows = $this->Delete($row); // Delete
 				$conn->raiseErrorFn = '';
@@ -904,20 +905,34 @@ while (!$image_gallery_delete->Recordset->EOF) {
 <?php if ($image_gallery->img_path->Visible) { // img_path ?>
 		<td<?php echo $image_gallery->img_path->CellAttributes() ?>>
 <span id="el<?php echo $image_gallery_delete->RowCnt ?>_image_gallery_img_path" class="control-group image_gallery_img_path">
-<span>
+<span<?php echo $image_gallery->img_path->ViewAttributes() ?>>
+<?php
+$Files = explode(",", $image_gallery->img_path->Upload->DbValue);
+$HrefValue = $image_gallery->img_path->HrefValue;
+$FileCount = count($Files);
+for ($i = 0; $i < $FileCount; $i++) {
+if ($Files[$i] <> "") {
+$image_gallery->img_path->ViewValue = $Files[$i];
+$image_gallery->img_path->HrefValue = str_replace("%u", ew_HtmlEncode(ew_UploadPathEx(FALSE, $image_gallery->img_path->UploadPath) . $Files[$i]), $HrefValue);
+$Files[$i] = str_replace("%f", ew_HtmlEncode(ew_UploadPathEx(FALSE, $image_gallery->img_path->UploadPath) . $Files[$i]), $image_gallery->img_path->ListViewValue());
+?>
 <?php if ($image_gallery->img_path->LinkAttributes() <> "") { ?>
 <?php if (!empty($image_gallery->img_path->Upload->DbValue)) { ?>
-<?php echo ew_GetFileViewTag($image_gallery->img_path, $image_gallery->img_path->ListViewValue()) ?>
+<?php echo $image_gallery->img_path->ListViewValue() ?>
 <?php } elseif (!in_array($image_gallery->CurrentAction, array("I", "edit", "gridedit"))) { ?>	
 &nbsp;
 <?php } ?>
 <?php } else { ?>
 <?php if (!empty($image_gallery->img_path->Upload->DbValue)) { ?>
-<?php echo ew_GetFileViewTag($image_gallery->img_path, $image_gallery->img_path->ListViewValue()) ?>
+<?php echo $image_gallery->img_path->ListViewValue() ?>
 <?php } elseif (!in_array($image_gallery->CurrentAction, array("I", "edit", "gridedit"))) { ?>	
 &nbsp;
 <?php } ?>
 <?php } ?>
+<?php
+}
+}
+?>
 </span>
 </span>
 </td>

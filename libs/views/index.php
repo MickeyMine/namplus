@@ -59,7 +59,51 @@
 		    $('.ad-gallery').adGallery({
 			    update_window_hash: false,
 			    enable_keyboard_move: true, 
+			    display_next_and_prev: false,
 			});
+
+		   $('.ad-image-wrapper').click(function(e){
+			   e.preventDefault();
+			   $img = $(this).find('.ad-image').find('img');
+			   //alert($(this).find('.ad-image').find('img').attr('src'));
+			   $pathCurrImage = $img.attr('src').split('/');
+			   $.ajax({
+				   url: 'ajax/zoomImage.php',
+				   type: 'POST',
+				   data: {
+					   currImage : $pathCurrImage[$pathCurrImage.length - 1],	
+					   listImage : <?php echo json_encode($listImage);?>,
+					   				   
+				   },
+				   beforeSend: function(){
+						$('#my_popup').popup({
+							autoopen: true,
+							pagecontainer: '.wrapper-map',
+							onopen: function(){
+								$('.wrapper-map').html('Loading.....');
+							},
+						});
+					},
+				   success: function(result){
+					    //alert(result + $img.attr('src'));
+					    $('#my_popup').popup('hide');
+						
+    					$('#my_popup').popup({
+    						closeelement: '.my_popup_close',
+    						autoopen: true,
+    						pagecontainer: '.wrapper-map',
+    						onopen: function(){
+    							$('.my_popup_close').css('display', 'block');
+    							$('.wrapper-map').html(result);
+    							$('.wrapper-map').focus();
+    						},
+    						onclose: function(){
+    							$('.my_popup_close').css('display', 'none');
+    						}					
+    					});
+				   },
+			   });
+		   });
 		});
 		$(window).resize(function () {	
 			window.location.reload(true);
@@ -74,13 +118,17 @@
 		            <?php 
 					foreach ($listImage as $image)
 					{
+					    $arrImg = split(',', $image['img_path']);
+					    foreach ($arrImg as $linkImage)
+					    {
 					?>
 		                <li>
-		                    <a href="<?php echo BASE_NAME . 'uploads/' . $image['img_path'];?>">
-		                        <img src="<?php echo BASE_NAME . 'uploads/' . $image['img_path'];?>" >
+		                    <a href="<?php echo BASE_NAME . 'uploads/' . $linkImage;?>">
+		                        <img src="<?php echo BASE_NAME . 'uploads/' . $linkImage;?>" >
 		                    </a>
 		                </li>
 		             <?php 
+					    }
 					}
 		             ?>
 		            </ul>

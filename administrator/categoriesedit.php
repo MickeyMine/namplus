@@ -820,7 +820,7 @@ class ccategories_edit extends ccategories {
 			$this->cat_parent_id->SetDbValueDef($rsnew, $this->cat_parent_id->CurrentValue, NULL, $this->cat_parent_id->ReadOnly);
 
 			// cat_is_gallery
-			$this->cat_is_gallery->SetDbValueDef($rsnew, $this->cat_is_gallery->CurrentValue, NULL, $this->cat_is_gallery->ReadOnly);
+			$this->cat_is_gallery->SetDbValueDef($rsnew, $this->cat_is_gallery->CurrentValue, 0, $this->cat_is_gallery->ReadOnly);
 
 			// cat_is_offer
 			$this->cat_is_offer->SetDbValueDef($rsnew, $this->cat_is_offer->CurrentValue, NULL, $this->cat_is_offer->ReadOnly);

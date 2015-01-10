@@ -39,7 +39,7 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 	text-decoration: none;
 }
 
-.desktop-only
+.desktop-only, .iphone-only
 {
 	display: block !important;
 }
@@ -48,6 +48,7 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 {
 	display: none !important;
 }
+
 
 /* ~~ this container surrounds all other divs giving them their percentage-based width ~~ */
 #outer-wrap, #inner-wrap {
@@ -157,7 +158,7 @@ label, select {
 .sidebar1 {
 	/*position: relative;*/
 	float: left;
-	width: 15%;
+	width: 13%;
 	padding-bottom: 10px;
 	top: 70px;
 	bottom: 0px;
@@ -233,9 +234,9 @@ label, select {
 	position: relative;
 	padding: 0px 2px 0px 0px;
 	margin: 0px auto;
-	width: 70%;
+	width: 74%;
 	float: left;
-	left: 15%;
+	left: 13%;
 	background-color: #fff;
 }
 
@@ -780,6 +781,7 @@ label
 	width: 100%;
 	text-align: center;
 	overflow: hidden;
+	margin: auto;
 }
 
 .div-new-content
@@ -1171,8 +1173,8 @@ label
 {
 	position: absolute;
    	left: 1px;
-   	right: 1px;
-   	top: 1px;
+   	right: 0px;
+   	top: 0px;
    	bottom: 1px;
 	background-color: #fff;
 	overflow: hidden;
@@ -1311,6 +1313,7 @@ label
 	float: left;
 	width: 100%;
 	padding: 0px;
+	margin-right: 1px;
 }
 
 #div-loading input
@@ -1319,7 +1322,8 @@ label
 	padding: 5px 0px;
 	margin: 0px;
 	text-transform: uppercase;
-
+	-webkit-appearance:none;
+	-webkit-border-radius:0px;
 }
 
 #div-loading input: hover
@@ -1631,6 +1635,27 @@ label
 
 /* ~~ End offer details ~~ */
 
+/* ~~Image zoom ~~ */
+.page-zoom
+{
+	margin: 0 auto;
+	height: 100%;
+	padding: 0;
+	background-color: #fff;
+}
+
+.t-center {
+    text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.gallery
+{
+	display: none;
+}
+/* ~~End image zoom ~~ */
+
 /* ~~The footer ~~ */
 .footer {
 	text-align: center;
@@ -1711,9 +1736,34 @@ label
 	line-height: 0px;
 }
 
+.ad-image-wrapper img
+{
+	cursor : url(../images/zoom.png), auto;
+}
+
 #my_popup
 {
 	display: none;
+}
+
+.my_popup_close
+{
+	background: url("../images/closeNew.png") no-repeat 50% 3px transparent;
+	display: block;
+	overflow: hidden;
+	width: 10px;
+	height: 15px;
+	margin: 9px;
+	padding: 4px;
+	text-indent: -100px;
+	border-radius: 7px 7px 7px 7px;
+    box-shadow: none;
+    font: bold 131% sans-serif !important;
+    padding: 0 6px 2px;
+    position: absolute;
+    right: -8px;
+    top: -5px;
+    z-index: 99999;
 }
 
 .wrapper-map

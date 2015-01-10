@@ -19,6 +19,7 @@ $RootMenu->AddMenuItem(15, $Language->MenuPhrase("15", "MenuText"), "register_fo
 $RootMenu->AddMenuItem(16, $Language->MenuPhrase("16", "MenuText"), "payment_typelist.php", -1, "", AllowListMenu('{621448A2-A15A-4302-8B90-FC8E171BD28F}payment_type'), FALSE);
 $RootMenu->AddMenuItem(10, $Language->MenuPhrase("10", "MenuText"), "subscriptionslist.php", -1, "", AllowListMenu('{621448A2-A15A-4302-8B90-FC8E171BD28F}subscriptions'), FALSE);
 $RootMenu->AddMenuItem(11, $Language->MenuPhrase("11", "MenuText"), "userslist.php", -1, "", AllowListMenu('{621448A2-A15A-4302-8B90-FC8E171BD28F}users'), FALSE);
+$RootMenu->AddMenuItem(28, $Language->MenuPhrase("28", "MenuText"), "contactuslist.php", -1, "", AllowListMenu('{621448A2-A15A-4302-8B90-FC8E171BD28F}contactus'), FALSE);
 $RootMenu->AddMenuItem(-1, $Language->Phrase("Logout"), "logout.php", -1, "", IsLoggedIn());
 $RootMenu->AddMenuItem(-1, $Language->Phrase("Login"), "login.php", -1, "", !IsLoggedIn() && substr(@$_SERVER["URL"], -1 * strlen("login.php")) <> "login.php");
 $RootMenu->Render();

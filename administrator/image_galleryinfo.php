@@ -48,7 +48,8 @@ class cimage_gallery extends cTable {
 		$this->fields['img_id'] = &$this->img_id;
 
 		// img_path
-		$this->img_path = new cField('image_gallery', 'image_gallery', 'x_img_path', 'img_path', '`img_path`', '`img_path`', 200, -1, TRUE, '`img_path`', FALSE, FALSE, FALSE, 'IMAGE');
+		$this->img_path = new cField('image_gallery', 'image_gallery', 'x_img_path', 'img_path', '`img_path`', '`img_path`', 200, -1, TRUE, '`img_path`', FALSE, FALSE, FALSE, 'FORMATTED TEXT');
+		$this->img_path->UploadMultiple = TRUE;
 		$this->fields['img_path'] = &$this->img_path;
 
 		// img_description
@@ -132,7 +133,7 @@ class cimage_gallery extends cTable {
 	}
 
 	function SqlOrderBy() { // Order By
-		return "";
+		return "`img_id` DESC";
 	}
 
 	// Check if Anonymous User is allowed
@@ -543,10 +544,7 @@ class cimage_gallery extends cTable {
 
 		// img_path
 		if (!ew_Empty($this->img_path->Upload->DbValue)) {
-			$this->img_path->ImageWidth = 80;
-			$this->img_path->ImageHeight = 0;
-			$this->img_path->ImageAlt = $this->img_path->FldAlt();
-			$this->img_path->ViewValue = ew_UploadPathEx(FALSE, $this->img_path->UploadPath) . $this->img_path->Upload->DbValue;
+			$this->img_path->ViewValue = $this->img_path->Upload->DbValue;
 		} else {
 			$this->img_path->ViewValue = "";
 		}

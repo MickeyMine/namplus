@@ -704,7 +704,7 @@ class cnews_edit extends cnews {
 
 			// new_description
 			$this->new_description->EditCustomAttributes = "";
-			$this->new_description->EditValue = ew_HtmlEncode($this->new_description->CurrentValue);
+			$this->new_description->EditValue = $this->new_description->CurrentValue;
 			$this->new_description->PlaceHolder = ew_RemoveHtml($this->new_description->FldCaption());
 
 			// new_content
@@ -847,12 +847,6 @@ class cnews_edit extends cnews {
 		if (!$this->new_title->FldIsDetailKey && !is_null($this->new_title->FormValue) && $this->new_title->FormValue == "") {
 			ew_AddMessage($gsFormError, $Language->Phrase("EnterRequiredField") . " - " . $this->new_title->FldCaption());
 		}
-		if (!$this->new_description->FldIsDetailKey && !is_null($this->new_description->FormValue) && $this->new_description->FormValue == "") {
-			ew_AddMessage($gsFormError, $Language->Phrase("EnterRequiredField") . " - " . $this->new_description->FldCaption());
-		}
-		if (!$this->new_content->FldIsDetailKey && !is_null($this->new_content->FormValue) && $this->new_content->FormValue == "") {
-			ew_AddMessage($gsFormError, $Language->Phrase("EnterRequiredField") . " - " . $this->new_content->FldCaption());
-		}
 		if (!$this->new_type->FldIsDetailKey && !is_null($this->new_type->FormValue) && $this->new_type->FormValue == "") {
 			ew_AddMessage($gsFormError, $Language->Phrase("EnterRequiredField") . " - " . $this->new_type->FldCaption());
 		}
@@ -911,10 +905,10 @@ class cnews_edit extends cnews {
 			$this->new_title->SetDbValueDef($rsnew, $this->new_title->CurrentValue, "", $this->new_title->ReadOnly);
 
 			// new_description
-			$this->new_description->SetDbValueDef($rsnew, $this->new_description->CurrentValue, "", $this->new_description->ReadOnly);
+			$this->new_description->SetDbValueDef($rsnew, $this->new_description->CurrentValue, NULL, $this->new_description->ReadOnly);
 
 			// new_content
-			$this->new_content->SetDbValueDef($rsnew, $this->new_content->CurrentValue, "", $this->new_content->ReadOnly);
+			$this->new_content->SetDbValueDef($rsnew, $this->new_content->CurrentValue, NULL, $this->new_content->ReadOnly);
 
 			// new_type
 			$this->new_type->SetDbValueDef($rsnew, $this->new_type->CurrentValue, 0, $this->new_type->ReadOnly);
@@ -1120,12 +1114,6 @@ fnewsedit.Validate = function() {
 			elm = this.GetElements("x" + infix + "_new_title");
 			if (elm && !ew_HasValue(elm))
 				return this.OnError(elm, ewLanguage.Phrase("EnterRequiredField") + " - <?php echo ew_JsEncode2($news->new_title->FldCaption()) ?>");
-			elm = this.GetElements("x" + infix + "_new_description");
-			if (elm && !ew_HasValue(elm))
-				return this.OnError(elm, ewLanguage.Phrase("EnterRequiredField") + " - <?php echo ew_JsEncode2($news->new_description->FldCaption()) ?>");
-			elm = this.GetElements("x" + infix + "_new_content");
-			if (elm && !ew_HasValue(elm))
-				return this.OnError(elm, ewLanguage.Phrase("EnterRequiredField") + " - <?php echo ew_JsEncode2($news->new_content->FldCaption()) ?>");
 			elm = this.GetElements("x" + infix + "_new_type");
 			if (elm && !ew_HasValue(elm))
 				return this.OnError(elm, ewLanguage.Phrase("EnterRequiredField") + " - <?php echo ew_JsEncode2($news->new_type->FldCaption()) ?>");
@@ -1227,22 +1215,25 @@ $news_edit->ShowMessage();
 <?php } ?>
 <?php if ($news->new_description->Visible) { // new_description ?>
 	<tr id="r_new_description">
-		<td><span id="elh_news_new_description"><?php echo $news->new_description->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></span></td>
+		<td><span id="elh_news_new_description"><?php echo $news->new_description->FldCaption() ?></span></td>
 		<td<?php echo $news->new_description->CellAttributes() ?>>
 <span id="el_news_new_description" class="control-group">
-<input type="text" data-field="x_new_description" name="x_new_description" id="x_new_description" size="30" maxlength="200" placeholder="<?php echo ew_HtmlEncode($news->new_description->PlaceHolder) ?>" value="<?php echo $news->new_description->EditValue ?>"<?php echo $news->new_description->EditAttributes() ?>>
+<textarea data-field="x_new_description" class="editor" name="x_new_description" id="x_new_description" cols="35" rows="2" placeholder="<?php echo ew_HtmlEncode($news->new_description->PlaceHolder) ?>"<?php echo $news->new_description->EditAttributes() ?>><?php echo $news->new_description->EditValue ?></textarea>
+<script type="text/javascript">
+ew_CreateEditor("fnewsedit", "x_new_description", 35, 2, <?php echo ($news->new_description->ReadOnly || FALSE) ? "true" : "false" ?>);
+</script>
 </span>
 <?php echo $news->new_description->CustomMsg ?></td>
 	</tr>
 <?php } ?>
 <?php if ($news->new_content->Visible) { // new_content ?>
 	<tr id="r_new_content">
-		<td><span id="elh_news_new_content"><?php echo $news->new_content->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></span></td>
+		<td><span id="elh_news_new_content"><?php echo $news->new_content->FldCaption() ?></span></td>
 		<td<?php echo $news->new_content->CellAttributes() ?>>
 <span id="el_news_new_content" class="control-group">
-<textarea data-field="x_new_content" class="editor" name="x_new_content" id="x_new_content" cols="35" rows="4" placeholder="<?php echo ew_HtmlEncode($news->new_content->PlaceHolder) ?>"<?php echo $news->new_content->EditAttributes() ?>><?php echo $news->new_content->EditValue ?></textarea>
+<textarea data-field="x_new_content" class="editor" name="x_new_content" id="x_new_content" cols="35" rows="7" placeholder="<?php echo ew_HtmlEncode($news->new_content->PlaceHolder) ?>"<?php echo $news->new_content->EditAttributes() ?>><?php echo $news->new_content->EditValue ?></textarea>
 <script type="text/javascript">
-ew_CreateEditor("fnewsedit", "x_new_content", 35, 4, <?php echo ($news->new_content->ReadOnly || FALSE) ? "true" : "false" ?>);
+ew_CreateEditor("fnewsedit", "x_new_content", 35, 7, <?php echo ($news->new_content->ReadOnly || FALSE) ? "true" : "false" ?>);
 </script>
 </span>
 <?php echo $news->new_content->CustomMsg ?></td>

@@ -496,27 +496,7 @@ class coffer_answers extends cTable {
 		$this->answer_id->ViewCustomAttributes = "";
 
 		// question_id
-		if (strval($this->question_id->CurrentValue) <> "") {
-			$sFilterWrk = "`question_id`" . ew_SearchString("=", $this->question_id->CurrentValue, EW_DATATYPE_NUMBER);
-		$sSqlWrk = "SELECT `question_id`, `question_content` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `viewquestionmulti`";
-		$sWhereWrk = "";
-		if ($sFilterWrk <> "") {
-			ew_AddFilter($sWhereWrk, $sFilterWrk);
-		}
-
-		// Call Lookup selecting
-		$this->Lookup_Selecting($this->question_id, $sWhereWrk);
-		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
-			$rswrk = $conn->Execute($sSqlWrk);
-			if ($rswrk && !$rswrk->EOF) { // Lookup values found
-				$this->question_id->ViewValue = $rswrk->fields('DispFld');
-				$rswrk->Close();
-			} else {
-				$this->question_id->ViewValue = $this->question_id->CurrentValue;
-			}
-		} else {
-			$this->question_id->ViewValue = NULL;
-		}
+		$this->question_id->ViewValue = $this->question_id->CurrentValue;
 		$this->question_id->ViewCustomAttributes = "";
 
 		// answer_content

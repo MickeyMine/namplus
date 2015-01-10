@@ -878,27 +878,7 @@ class coffer_answers_list extends coffer_answers {
 			$this->answer_id->ViewCustomAttributes = "";
 
 			// question_id
-			if (strval($this->question_id->CurrentValue) <> "") {
-				$sFilterWrk = "`question_id`" . ew_SearchString("=", $this->question_id->CurrentValue, EW_DATATYPE_NUMBER);
-			$sSqlWrk = "SELECT `question_id`, `question_content` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `viewquestionmulti`";
-			$sWhereWrk = "";
-			if ($sFilterWrk <> "") {
-				ew_AddFilter($sWhereWrk, $sFilterWrk);
-			}
-
-			// Call Lookup selecting
-			$this->Lookup_Selecting($this->question_id, $sWhereWrk);
-			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
-				$rswrk = $conn->Execute($sSqlWrk);
-				if ($rswrk && !$rswrk->EOF) { // Lookup values found
-					$this->question_id->ViewValue = $rswrk->fields('DispFld');
-					$rswrk->Close();
-				} else {
-					$this->question_id->ViewValue = $this->question_id->CurrentValue;
-				}
-			} else {
-				$this->question_id->ViewValue = NULL;
-			}
+			$this->question_id->ViewValue = $this->question_id->CurrentValue;
 			$this->question_id->ViewCustomAttributes = "";
 
 			// answer_status
@@ -1088,9 +1068,8 @@ foffer_answerslist.ValidateRequired = false;
 <?php } ?>
 
 // Dynamic selection lists
-foffer_answerslist.Lists["x_question_id"] = {"LinkField":"x_question_id","Ajax":null,"AutoFill":false,"DisplayFields":["x_question_content","","",""],"ParentFields":[],"FilterFields":[],"Options":[]};
-
 // Form object for search
+
 </script>
 <script type="text/javascript">
 
@@ -1122,6 +1101,72 @@ $offer_answers_list->RenderOtherOptions();
 $offer_answers_list->ShowMessage();
 ?>
 <table class="ewGrid"><tr><td class="ewGridContent">
+<div class="ewGridUpperPanel">
+<?php if ($offer_answers->CurrentAction <> "gridadd" && $offer_answers->CurrentAction <> "gridedit") { ?>
+<form name="ewPagerForm" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>">
+<table class="ewPager">
+<tr><td>
+<?php if (!isset($offer_answers_list->Pager)) $offer_answers_list->Pager = new cPrevNextPager($offer_answers_list->StartRec, $offer_answers_list->DisplayRecs, $offer_answers_list->TotalRecs) ?>
+<?php if ($offer_answers_list->Pager->RecordCount > 0) { ?>
+<table class="ewStdTable"><tbody><tr><td>
+	<?php echo $Language->Phrase("Page") ?>&nbsp;
+<div class="input-prepend input-append">
+<!--first page button-->
+	<?php if ($offer_answers_list->Pager->FirstButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $offer_answers_list->PageUrl() ?>start=<?php echo $offer_answers_list->Pager->FirstButton->Start ?>"><i class="icon-step-backward"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-step-backward"></i></a>
+	<?php } ?>
+<!--previous page button-->
+	<?php if ($offer_answers_list->Pager->PrevButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $offer_answers_list->PageUrl() ?>start=<?php echo $offer_answers_list->Pager->PrevButton->Start ?>"><i class="icon-prev"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-prev"></i></a>
+	<?php } ?>
+<!--current page number-->
+	<input class="input-mini" type="text" name="<?php echo EW_TABLE_PAGE_NO ?>" value="<?php echo $offer_answers_list->Pager->CurrentPage ?>">
+<!--next page button-->
+	<?php if ($offer_answers_list->Pager->NextButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $offer_answers_list->PageUrl() ?>start=<?php echo $offer_answers_list->Pager->NextButton->Start ?>"><i class="icon-play"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-play"></i></a>
+	<?php } ?>
+<!--last page button-->
+	<?php if ($offer_answers_list->Pager->LastButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $offer_answers_list->PageUrl() ?>start=<?php echo $offer_answers_list->Pager->LastButton->Start ?>"><i class="icon-step-forward"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-step-forward"></i></a>
+	<?php } ?>
+</div>
+	&nbsp;<?php echo $Language->Phrase("of") ?>&nbsp;<?php echo $offer_answers_list->Pager->PageCount ?>
+</td>
+<td>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php echo $Language->Phrase("Record") ?>&nbsp;<?php echo $offer_answers_list->Pager->FromIndex ?>&nbsp;<?php echo $Language->Phrase("To") ?>&nbsp;<?php echo $offer_answers_list->Pager->ToIndex ?>&nbsp;<?php echo $Language->Phrase("Of") ?>&nbsp;<?php echo $offer_answers_list->Pager->RecordCount ?>
+</td>
+</tr></tbody></table>
+<?php } else { ?>
+	<?php if ($Security->CanList()) { ?>
+	<?php if ($offer_answers_list->SearchWhere == "0=101") { ?>
+	<p><?php echo $Language->Phrase("EnterSearchCriteria") ?></p>
+	<?php } else { ?>
+	<p><?php echo $Language->Phrase("NoRecord") ?></p>
+	<?php } ?>
+	<?php } else { ?>
+	<p><?php echo $Language->Phrase("NoPermission") ?></p>
+	<?php } ?>
+<?php } ?>
+</td>
+</tr></table>
+</form>
+<?php } ?>
+<div class="ewListOtherOptions">
+<?php
+	foreach ($offer_answers_list->OtherOptions as &$option)
+		$option->Render("body");
+?>
+</div>
+</div>
 <form name="foffer_answerslist" id="foffer_answerslist" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>" method="post">
 <input type="hidden" name="t" value="offer_answers">
 <div id="gmp_offer_answers" class="ewGridMiddlePanel">
@@ -1273,6 +1318,7 @@ $offer_answers_list->ListOptions->Render("body", "right", $offer_answers_list->R
 if ($offer_answers_list->Recordset)
 	$offer_answers_list->Recordset->Close();
 ?>
+<?php if ($offer_answers_list->TotalRecs > 0) { ?>
 <div class="ewGridLowerPanel">
 <?php if ($offer_answers->CurrentAction <> "gridadd" && $offer_answers->CurrentAction <> "gridedit") { ?>
 <form name="ewPagerForm" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>">
@@ -1339,6 +1385,7 @@ if ($offer_answers_list->Recordset)
 ?>
 </div>
 </div>
+<?php } ?>
 </td></tr></table>
 <script type="text/javascript">
 foffer_answerslist.Init();

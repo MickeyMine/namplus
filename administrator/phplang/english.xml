@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" standalone="yes"?>
-<ew-language date="2014/11/18" version="10.0.3" id="en" name="English" desc="English" author="e.World Technology Ltd.">
+<ew-language date="2015/1/3" version="10.0.3" id="en" name="English" desc="English" author="e.World Technology Ltd.">
 	<locale>
 		<phrase id="locale" value=""/><!-- *** system locale for this language -->
 		<phrase id="use_system_locale" value="1"/><!-- *** change to "0" to disable system locale and use the following settings *** -->
@@ -373,19 +373,19 @@
 	</global>
 	<project><phrase id="bodytitle" value="NAM Plus"/>
 <phrase id="footertext" value="&amp;copy;2014 - NAM Plus"/>
-<menu id="23"><phrase id="menutext" value="viewquestionmulti"/>
+<menu id="23"><phrase id="menutext" value="viewcategoriesparent"/>
 </menu>
-<menu id="18"><phrase id="menutext" value="viewoffers"/>
+<menu id="24"><phrase id="menutext" value="viewnews"/>
 </menu>
-<menu id="19"><phrase id="menutext" value="viewnews"/>
+<menu id="25"><phrase id="menutext" value="viewnewstops"/>
 </menu>
-<menu id="20"><phrase id="menutext" value="viewnewstops"/>
+<menu id="26"><phrase id="menutext" value="viewoffers"/>
+</menu>
+<menu id="27"><phrase id="menutext" value="viewquestionmulti"/>
 </menu>
 <menu id="12"><phrase id="menutext" value="userlevelpermissions"/>
 </menu>
 <menu id="13"><phrase id="menutext" value="userlevels"/>
-</menu>
-<menu id="14"><phrase id="menutext" value="viewcategoriesparent"/>
 </menu>
 <menu id="1"><phrase id="menutext" value="Categories"/>
 </menu>
@@ -415,6 +415,8 @@
 </menu>
 <menu id="11"><phrase id="menutext" value="Users"/>
 </menu>
+<menu id="28"><phrase id="menutext" value="Contact Us"/>
+</menu>
 <table id="categories"><phrase id="tblcaption" value="Categories"/>
 <field id="cat_id"><phrase id="fldcaption" value="ID"/>
 </field>
@@ -423,6 +425,12 @@
 <field id="cat_description"><phrase id="fldcaption" value="Category description"/>
 </field>
 <field id="cat_parent_id"><phrase id="fldcaption" value="Category parent id"/>
+</field>
+<field id="cat_is_gallery"><phrase id="fldcaption" value="Is gallery"/>
+<phrase id="fldtagvalue1" value="0"/>
+<phrase id="fldtagcaption1" value="No"/>
+<phrase id="fldtagvalue2" value="1"/>
+<phrase id="fldtagcaption2" value="Yes"/>
 </field>
 <field id="cat_is_offer"><phrase id="fldcaption" value="Is offer"/>
 <phrase id="fldtagvalue1" value="0"/>
@@ -443,12 +451,6 @@
 <phrase id="fldtagcaption1" value="Hidden"/>
 <phrase id="fldtagvalue2" value="1"/>
 <phrase id="fldtagcaption2" value="Show"/>
-</field>
-<field id="cat_is_gallery"><phrase id="fldcaption" value="Is gallery"/>
-<phrase id="fldtagvalue1" value="0"/>
-<phrase id="fldtagcaption1" value="No"/>
-<phrase id="fldtagvalue2" value="1"/>
-<phrase id="fldtagcaption2" value="Yes"/>
 </field>
 </table>
 <table id="customers"><phrase id="tblcaption" value="Customers"/>
@@ -696,20 +698,6 @@
 <field id="userlevelname"><phrase id="fldcaption" value="userlevelname"/>
 </field>
 </table>
-<table id="viewcategoriesparent"><phrase id="tblcaption" value="viewcategoriesparent"/>
-<field id="cat_id"><phrase id="fldcaption" value="ID"/>
-</field>
-<field id="cat_name"><phrase id="fldcaption" value="Name"/>
-</field>
-<field id="cat_description"><phrase id="fldcaption" value="Description"/>
-</field>
-<field id="cat_parent_id"><phrase id="fldcaption" value="Category parent id"/>
-</field>
-<field id="cat_order"><phrase id="fldcaption" value="Order"/>
-</field>
-<field id="cat_status"><phrase id="fldcaption" value="Satus"/>
-</field>
-</table>
 <table id="register_form"><phrase id="tblcaption" value="Register form"/>
 <field id="register_id"><phrase id="fldcaption" value="ID"/>
 </field>
@@ -734,7 +722,31 @@
 <phrase id="fldtagcaption2" value="Transfer"/>
 </field>
 </table>
-<table id="viewoffers"><phrase id="tblcaption" value="viewoffers"/>
+<table id="offer_cus_answers"><phrase id="tblcaption" value="offer cus answers"/>
+<field id="cusans_id"><phrase id="fldcaption" value="ID"/>
+</field>
+<field id="cusans_customer_id"><phrase id="fldcaption" value="Customer ID"/>
+</field>
+<field id="cusans_offer_id"><phrase id="fldcaption" value="Offer ID"/>
+</field>
+<field id="cusans_content"><phrase id="fldcaption" value="Content"/>
+</field>
+</table>
+<table id="offer_vouchers"><phrase id="tblcaption" value="offer vouchers"/>
+<field id="voucher_id"><phrase id="fldcaption" value="ID"/>
+</field>
+<field id="voucher_number"><phrase id="fldcaption" value="Voucher number"/>
+</field>
+<field id="voucher_offer_id"><phrase id="fldcaption" value="Offer id"/>
+</field>
+<field id="voucher_status"><phrase id="fldcaption" value="Status"/>
+<phrase id="fldtagvalue1" value="0"/>
+<phrase id="fldtagcaption1" value="Hidden"/>
+<phrase id="fldtagvalue2" value="1"/>
+<phrase id="fldtagcaption2" value="Show"/>
+</field>
+</table>
+<table id="viewcategoriesparent"><phrase id="tblcaption" value="viewcategoriesparent"/>
 <field id="cat_id"><phrase id="fldcaption" value="cat id"/>
 </field>
 <field id="cat_name"><phrase id="fldcaption" value="cat name"/>
@@ -742,10 +754,6 @@
 <field id="cat_description"><phrase id="fldcaption" value="cat description"/>
 </field>
 <field id="cat_parent_id"><phrase id="fldcaption" value="cat parent id"/>
-</field>
-<field id="cat_is_offer"><phrase id="fldcaption" value="cat is offer"/>
-</field>
-<field id="cat_is_competition"><phrase id="fldcaption" value="cat is competition"/>
 </field>
 <field id="cat_order"><phrase id="fldcaption" value="cat order"/>
 </field>
@@ -792,28 +800,22 @@
 <field id="new_status"><phrase id="fldcaption" value="new status"/>
 </field>
 </table>
-<table id="offer_cus_answers"><phrase id="tblcaption" value="offer cus answers"/>
-<field id="cusans_id"><phrase id="fldcaption" value="ID"/>
+<table id="viewoffers"><phrase id="tblcaption" value="viewoffers"/>
+<field id="cat_id"><phrase id="fldcaption" value="cat id"/>
 </field>
-<field id="cusans_customer_id"><phrase id="fldcaption" value="Customer ID"/>
+<field id="cat_name"><phrase id="fldcaption" value="cat name"/>
 </field>
-<field id="cusans_offer_id"><phrase id="fldcaption" value="Offer ID"/>
+<field id="cat_description"><phrase id="fldcaption" value="cat description"/>
 </field>
-<field id="cusans_content"><phrase id="fldcaption" value="Content"/>
+<field id="cat_parent_id"><phrase id="fldcaption" value="cat parent id"/>
 </field>
-</table>
-<table id="offer_vouchers"><phrase id="tblcaption" value="offer vouchers"/>
-<field id="voucher_id"><phrase id="fldcaption" value="ID"/>
+<field id="cat_is_offer"><phrase id="fldcaption" value="cat is offer"/>
 </field>
-<field id="voucher_number"><phrase id="fldcaption" value="Voucher number"/>
+<field id="cat_is_competition"><phrase id="fldcaption" value="cat is competition"/>
 </field>
-<field id="voucher_offer_id"><phrase id="fldcaption" value="Offer id"/>
+<field id="cat_order"><phrase id="fldcaption" value="cat order"/>
 </field>
-<field id="voucher_status"><phrase id="fldcaption" value="Status"/>
-<phrase id="fldtagvalue1" value="0"/>
-<phrase id="fldtagcaption1" value="Hidden"/>
-<phrase id="fldtagvalue2" value="1"/>
-<phrase id="fldtagcaption2" value="Show"/>
+<field id="cat_status"><phrase id="fldcaption" value="cat status"/>
 </field>
 </table>
 <table id="viewquestionmulti"><phrase id="tblcaption" value="viewquestionmulti"/>
@@ -826,6 +828,12 @@
 <field id="offer_id"><phrase id="fldcaption" value="offer id"/>
 </field>
 <field id="question_status"><phrase id="fldcaption" value="question status"/>
+</field>
+</table>
+<table id="contactus"><phrase id="tblcaption" value="Contact Us"/>
+<field id="id"><phrase id="fldcaption" value="ID"/>
+</field>
+<field id="content"><phrase id="fldcaption" value="Content"/>
 </field>
 </table>
 </project>

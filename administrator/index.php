@@ -217,6 +217,8 @@ class cdefault {
 			$this->Page_Terminate("offer_cus_answerslist.php");
 		if ($Security->AllowList(CurrentProjectID() . 'offer_vouchers'))
 			$this->Page_Terminate("offer_voucherslist.php");
+		if ($Security->AllowList(CurrentProjectID() . 'contactus'))
+			$this->Page_Terminate("contactuslist.php");
 		if ($Security->IsLoggedIn()) {
 			$this->setFailureMessage($Language->Phrase("NoPermission") . "<br><br><a href=\"logout.php\">" . $Language->Phrase("BackToLogin") . "</a>");
 		} else {

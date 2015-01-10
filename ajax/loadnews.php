@@ -55,7 +55,7 @@ if(isset($_POST['page']) && isset($_POST['maxrecords']) && isset($_POST['sql']))
 								    <a href="<?php echo $link;?>">
 									<?php
 									echo '<h3 class="title-new-content">' . $new['new_title'].'</h3>';
-									echo $new['new_description'];
+									echo '<span class="iphone-only">' . $new['new_description'] . '</span>';
 									?>
 									</a>
 								</div>

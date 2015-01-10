@@ -532,10 +532,7 @@ class cimage_gallery_add extends cimage_gallery {
 
 			// img_path
 			if (!ew_Empty($this->img_path->Upload->DbValue)) {
-				$this->img_path->ImageWidth = 80;
-				$this->img_path->ImageHeight = 0;
-				$this->img_path->ImageAlt = $this->img_path->FldAlt();
-				$this->img_path->ViewValue = ew_UploadPathEx(FALSE, $this->img_path->UploadPath) . $this->img_path->Upload->DbValue;
+				$this->img_path->ViewValue = $this->img_path->Upload->DbValue;
 			} else {
 				$this->img_path->ViewValue = "";
 			}
@@ -723,10 +720,7 @@ class cimage_gallery_add extends cimage_gallery {
 			// img_path
 			$this->img_path->EditCustomAttributes = "";
 			if (!ew_Empty($this->img_path->Upload->DbValue)) {
-				$this->img_path->ImageWidth = 80;
-				$this->img_path->ImageHeight = 0;
-				$this->img_path->ImageAlt = $this->img_path->FldAlt();
-				$this->img_path->EditValue = ew_UploadPathEx(FALSE, $this->img_path->UploadPath) . $this->img_path->Upload->DbValue;
+				$this->img_path->EditValue = $this->img_path->Upload->DbValue;
 			} else {
 				$this->img_path->EditValue = "";
 			}
@@ -947,12 +941,31 @@ class cimage_gallery_add extends cimage_gallery {
 		// img_status
 		$this->img_status->SetDbValueDef($rsnew, $this->img_status->CurrentValue, 0, FALSE);
 		if (!$this->img_path->Upload->KeepFile) {
-			if (!ew_Empty($this->img_path->Upload->Value)) {
-				if ($this->img_path->Upload->FileName == $this->img_path->Upload->DbValue) { // Overwrite if same file name
-					$this->img_path->Upload->DbValue = ""; // No need to delete any more
-				} else {
-					$rsnew['img_path'] = ew_UploadFileNameEx(ew_UploadPathEx(TRUE, $this->img_path->UploadPath), $rsnew['img_path']); // Get new file name
+			$OldFiles = explode(",", $this->img_path->Upload->DbValue);
+			if (!ew_Empty($this->img_path->Upload->FileName)) {
+				$NewFiles = explode(",", $this->img_path->Upload->FileName);
+				$FileCount = count($NewFiles);
+				for ($i = 0; $i < $FileCount; $i++) {
+					$fldvar = ($this->img_path->Upload->Index < 0) ? $this->img_path->FldVar : substr($this->img_path->FldVar, 0, 1) . $this->img_path->Upload->Index . substr($this->img_path->FldVar, 1);
+					if ($NewFiles[$i] <> "") {
+						$file = $NewFiles[$i];
+						if (file_exists(ew_UploadTempPath($fldvar) . EW_PATH_DELIMITER . $file)) {
+							if (!in_array($file, $OldFiles)) {
+								$file1 = ew_UploadFileNameEx(ew_UploadPathEx(TRUE, $this->img_path->UploadPath), $file); // Get new file name
+								if ($file1 <> $file) { // Rename temp file
+									while (file_exists(ew_UploadTempPath($fldvar) . EW_PATH_DELIMITER . $file1)) // Make sure did not clash with existing upload file
+										$file1 = ew_UniqueFilename(ew_UploadPathEx(TRUE, $this->img_path->UploadPath), $file1, TRUE); // Use indexed name
+									rename(ew_UploadTempPath($fldvar) . EW_PATH_DELIMITER . $file, ew_UploadTempPath($fldvar) . EW_PATH_DELIMITER . $file1);
+									$NewFiles[$i] = $file1;
+								}
+							}
+						}
+					}
 				}
+				$this->img_path->Upload->FileName = implode(",", $NewFiles);
+				$rsnew['img_path'] = $this->img_path->Upload->FileName;
+			} else {
+				$NewFiles = array();
 			}
 		}
 
@@ -965,11 +978,29 @@ class cimage_gallery_add extends cimage_gallery {
 			$conn->raiseErrorFn = '';
 			if ($AddRow) {
 				if (!$this->img_path->Upload->KeepFile) {
-					if (!ew_Empty($this->img_path->Upload->Value)) {
-						$this->img_path->Upload->SaveToFile($this->img_path->UploadPath, $rsnew['img_path'], TRUE);
+					$OldFiles = explode(",", $this->img_path->Upload->DbValue);
+					if (!ew_Empty($this->img_path->Upload->FileName)) {
+						$NewFiles = explode(",", $this->img_path->Upload->FileName);
+						$NewFiles2 = explode(",", $rsnew['img_path']);
+						$FileCount = count($NewFiles);
+						for ($i = 0; $i < $FileCount; $i++) {
+							$fldvar = ($this->img_path->Upload->Index < 0) ? $this->img_path->FldVar : substr($this->img_path->FldVar, 0, 1) . $this->img_path->Upload->Index . substr($this->img_path->FldVar, 1);
+							if ($NewFiles[$i] <> "") {
+								$file = ew_UploadTempPath($fldvar) . EW_PATH_DELIMITER . $NewFiles[$i];
+								if (file_exists($file)) {
+									$this->img_path->Upload->Value = file_get_contents($file);
+									$this->img_path->Upload->SaveToFile($this->img_path->UploadPath, (@$NewFiles2[$i] <> "") ? $NewFiles2[$i] : $NewFiles[$i], TRUE); // Just replace
+								}
+							}
+						}
+					} else {
+						$NewFiles = array();
 					}
-					if ($this->img_path->Upload->DbValue <> "")
-						@unlink(ew_UploadPathEx(TRUE, $this->img_path->OldUploadPath) . $this->img_path->Upload->DbValue);
+					$FileCount = count($OldFiles);
+					for ($i = 0; $i < $FileCount; $i++) {
+						if ($OldFiles[$i] <> "" && !in_array($OldFiles[$i], $NewFiles))
+							@unlink(ew_UploadPathEx(TRUE, $this->img_path->OldUploadPath) . $OldFiles[$i]);
+					}
 				}
 			}
 		} else {
@@ -1207,7 +1238,7 @@ $image_gallery_add->ShowMessage();
 <span id="fd_x_img_path">
 <span class="btn btn-small fileinput-button"<?php if ($image_gallery->img_path->ReadOnly || $image_gallery->img_path->Disabled) echo " style=\"display: none;\""; ?>>
 	<span><?php echo $Language->Phrase("ChooseFile") ?></span>
-	<input type="file" data-field="x_img_path" name="x_img_path" id="x_img_path">
+	<input type="file" data-field="x_img_path" name="x_img_path" id="x_img_path" multiple="multiple">
 </span>
 <input type="hidden" name="fn_x_img_path" id= "fn_x_img_path" value="<?php echo $image_gallery->img_path->Upload->FileName ?>">
 <input type="hidden" name="fa_x_img_path" id= "fa_x_img_path" value="0">

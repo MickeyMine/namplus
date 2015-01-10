@@ -53,7 +53,7 @@ class cnews extends cTable {
 		$this->fields['new_title'] = &$this->new_title;
 
 		// new_description
-		$this->new_description = new cField('news', 'news', 'x_new_description', 'new_description', '`new_description`', '`new_description`', 200, -1, FALSE, '`new_description`', FALSE, FALSE, FALSE, 'FORMATTED TEXT');
+		$this->new_description = new cField('news', 'news', 'x_new_description', 'new_description', '`new_description`', '`new_description`', 201, -1, FALSE, '`new_description`', FALSE, FALSE, FALSE, 'FORMATTED TEXT');
 		$this->fields['new_description'] = &$this->new_description;
 
 		// new_content
@@ -137,7 +137,7 @@ class cnews extends cTable {
 	}
 
 	function SqlOrderBy() { // Order By
-		return "";
+		return "`new_id` DESC";
 	}
 
 	// Check if Anonymous User is allowed

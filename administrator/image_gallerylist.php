@@ -638,6 +638,7 @@ class cimage_gallery_list extends cimage_gallery {
 			if ($this->SqlOrderBy() <> "") {
 				$sOrderBy = $this->SqlOrderBy();
 				$this->setSessionOrderBy($sOrderBy);
+				$this->img_id->setSort("DESC");
 			}
 		}
 	}
@@ -1053,10 +1054,7 @@ class cimage_gallery_list extends cimage_gallery {
 
 			// img_path
 			if (!ew_Empty($this->img_path->Upload->DbValue)) {
-				$this->img_path->ImageWidth = 80;
-				$this->img_path->ImageHeight = 0;
-				$this->img_path->ImageAlt = $this->img_path->FldAlt();
-				$this->img_path->ViewValue = ew_UploadPathEx(FALSE, $this->img_path->UploadPath) . $this->img_path->Upload->DbValue;
+				$this->img_path->ViewValue = $this->img_path->Upload->DbValue;
 			} else {
 				$this->img_path->ViewValue = "";
 			}
@@ -1476,6 +1474,72 @@ $image_gallery_list->RenderOtherOptions();
 $image_gallery_list->ShowMessage();
 ?>
 <table class="ewGrid"><tr><td class="ewGridContent">
+<div class="ewGridUpperPanel">
+<?php if ($image_gallery->CurrentAction <> "gridadd" && $image_gallery->CurrentAction <> "gridedit") { ?>
+<form name="ewPagerForm" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>">
+<table class="ewPager">
+<tr><td>
+<?php if (!isset($image_gallery_list->Pager)) $image_gallery_list->Pager = new cPrevNextPager($image_gallery_list->StartRec, $image_gallery_list->DisplayRecs, $image_gallery_list->TotalRecs) ?>
+<?php if ($image_gallery_list->Pager->RecordCount > 0) { ?>
+<table class="ewStdTable"><tbody><tr><td>
+	<?php echo $Language->Phrase("Page") ?>&nbsp;
+<div class="input-prepend input-append">
+<!--first page button-->
+	<?php if ($image_gallery_list->Pager->FirstButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $image_gallery_list->PageUrl() ?>start=<?php echo $image_gallery_list->Pager->FirstButton->Start ?>"><i class="icon-step-backward"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-step-backward"></i></a>
+	<?php } ?>
+<!--previous page button-->
+	<?php if ($image_gallery_list->Pager->PrevButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $image_gallery_list->PageUrl() ?>start=<?php echo $image_gallery_list->Pager->PrevButton->Start ?>"><i class="icon-prev"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-prev"></i></a>
+	<?php } ?>
+<!--current page number-->
+	<input class="input-mini" type="text" name="<?php echo EW_TABLE_PAGE_NO ?>" value="<?php echo $image_gallery_list->Pager->CurrentPage ?>">
+<!--next page button-->
+	<?php if ($image_gallery_list->Pager->NextButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $image_gallery_list->PageUrl() ?>start=<?php echo $image_gallery_list->Pager->NextButton->Start ?>"><i class="icon-play"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-play"></i></a>
+	<?php } ?>
+<!--last page button-->
+	<?php if ($image_gallery_list->Pager->LastButton->Enabled) { ?>
+	<a class="btn btn-small" href="<?php echo $image_gallery_list->PageUrl() ?>start=<?php echo $image_gallery_list->Pager->LastButton->Start ?>"><i class="icon-step-forward"></i></a>
+	<?php } else { ?>
+	<a class="btn btn-small disabled"><i class="icon-step-forward"></i></a>
+	<?php } ?>
+</div>
+	&nbsp;<?php echo $Language->Phrase("of") ?>&nbsp;<?php echo $image_gallery_list->Pager->PageCount ?>
+</td>
+<td>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php echo $Language->Phrase("Record") ?>&nbsp;<?php echo $image_gallery_list->Pager->FromIndex ?>&nbsp;<?php echo $Language->Phrase("To") ?>&nbsp;<?php echo $image_gallery_list->Pager->ToIndex ?>&nbsp;<?php echo $Language->Phrase("Of") ?>&nbsp;<?php echo $image_gallery_list->Pager->RecordCount ?>
+</td>
+</tr></tbody></table>
+<?php } else { ?>
+	<?php if ($Security->CanList()) { ?>
+	<?php if ($image_gallery_list->SearchWhere == "0=101") { ?>
+	<p><?php echo $Language->Phrase("EnterSearchCriteria") ?></p>
+	<?php } else { ?>
+	<p><?php echo $Language->Phrase("NoRecord") ?></p>
+	<?php } ?>
+	<?php } else { ?>
+	<p><?php echo $Language->Phrase("NoPermission") ?></p>
+	<?php } ?>
+<?php } ?>
+</td>
+</tr></table>
+</form>
+<?php } ?>
+<div class="ewListOtherOptions">
+<?php
+	foreach ($image_gallery_list->OtherOptions as &$option)
+		$option->Render("body");
+?>
+</div>
+</div>
 <form name="fimage_gallerylist" id="fimage_gallerylist" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>" method="post">
 <input type="hidden" name="t" value="image_gallery">
 <div id="gmp_image_gallery" class="ewGridMiddlePanel">
@@ -1654,20 +1718,34 @@ $image_gallery_list->ListOptions->Render("body", "left", $image_gallery_list->Ro
 	<?php } ?>
 	<?php if ($image_gallery->img_path->Visible) { // img_path ?>
 		<td<?php echo $image_gallery->img_path->CellAttributes() ?>>
-<span>
+<span<?php echo $image_gallery->img_path->ViewAttributes() ?>>
+<?php
+$Files = explode(",", $image_gallery->img_path->Upload->DbValue);
+$HrefValue = $image_gallery->img_path->HrefValue;
+$FileCount = count($Files);
+for ($i = 0; $i < $FileCount; $i++) {
+if ($Files[$i] <> "") {
+$image_gallery->img_path->ViewValue = $Files[$i];
+$image_gallery->img_path->HrefValue = str_replace("%u", ew_HtmlEncode(ew_UploadPathEx(FALSE, $image_gallery->img_path->UploadPath) . $Files[$i]), $HrefValue);
+$Files[$i] = str_replace("%f", ew_HtmlEncode(ew_UploadPathEx(FALSE, $image_gallery->img_path->UploadPath) . $Files[$i]), $image_gallery->img_path->ListViewValue());
+?>
 <?php if ($image_gallery->img_path->LinkAttributes() <> "") { ?>
 <?php if (!empty($image_gallery->img_path->Upload->DbValue)) { ?>
-<?php echo ew_GetFileViewTag($image_gallery->img_path, $image_gallery->img_path->ListViewValue()) ?>
+<?php echo $image_gallery->img_path->ListViewValue() ?>
 <?php } elseif (!in_array($image_gallery->CurrentAction, array("I", "edit", "gridedit"))) { ?>	
 &nbsp;
 <?php } ?>
 <?php } else { ?>
 <?php if (!empty($image_gallery->img_path->Upload->DbValue)) { ?>
-<?php echo ew_GetFileViewTag($image_gallery->img_path, $image_gallery->img_path->ListViewValue()) ?>
+<?php echo $image_gallery->img_path->ListViewValue() ?>
 <?php } elseif (!in_array($image_gallery->CurrentAction, array("I", "edit", "gridedit"))) { ?>	
 &nbsp;
 <?php } ?>
 <?php } ?>
+<?php
+}
+}
+?>
 </span>
 </td>
 	<?php } ?>
@@ -1745,6 +1823,7 @@ $image_gallery_list->ListOptions->Render("body", "right", $image_gallery_list->R
 if ($image_gallery_list->Recordset)
 	$image_gallery_list->Recordset->Close();
 ?>
+<?php if ($image_gallery_list->TotalRecs > 0) { ?>
 <div class="ewGridLowerPanel">
 <?php if ($image_gallery->CurrentAction <> "gridadd" && $image_gallery->CurrentAction <> "gridedit") { ?>
 <form name="ewPagerForm" class="ewForm form-inline" action="<?php echo ew_CurrentPage() ?>">
@@ -1811,6 +1890,7 @@ if ($image_gallery_list->Recordset)
 ?>
 </div>
 </div>
+<?php } ?>
 </td></tr></table>
 <script type="text/javascript">
 fimage_gallerylistsrch.Init();
